@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       canonical: `/${lang}/`,
       languages: { it: "/it/", en: "/en/", "x-default": "/" },
     },
-    icons: { icon: withBase("/projects/gamemode/logo.svg") },
+    icons: { icon: withBase("/favicon.svg") },
     openGraph: {
       type: "website",
       title: t.meta.title,

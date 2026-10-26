@@ -49,6 +49,12 @@ export interface Project {
   year: string;
   /** Una o due frasi per l'indice in home. */
   summary: Localized;
+  /** Il problema da cui parte il progetto. */
+  problem: Localized;
+  /** A chi serve. */
+  audience: Localized;
+  /** A che punto è: versione e cosa manca. */
+  status: Localized;
   /** La frase lunga per la pagina del progetto. */
   lead: Localized;
   stack: string;
@@ -84,6 +90,9 @@ export const projects: Project[] = [
       it: "GameMode guidato dalla tastiera come da un pad: la home, la libreria, il menu del tasto Guide.",
       en: "GameMode driven from the keyboard as if from a pad: the home screen, the library, the Guide button menu.",
     },
+    problem: { it: "Su un PC Windows i giochi sono sparsi tra Steam, Xbox, Epic, GOG e altri launcher, ognuno con la sua finestra pensata per mouse e tastiera. Dal divano, con un controller in mano, il desktop di Windows non si usa.", en: "On a Windows PC, games are spread across Steam, Xbox, Epic, GOG and other launchers, each with its own window built for mouse and keyboard. From the couch, with a controller in hand, the Windows desktop is not usable." },
+    audience: { it: "Chi gioca sul PC collegato alla TV o su una console portatile con Windows.", en: "People who play on a PC hooked up to a TV, or on a Windows handheld." },
+    status: { it: "Versione 0.2.6, con installer per Windows e aggiornamenti firmati su un canale stabile e uno beta.", en: "Version 0.2.6, with a Windows installer and signed updates on a stable and a beta channel." },
     lead: { it: "Un launcher per giocare sul PC con il controller, senza mouse né tastiera. Open source, scritto in Rust e React.", en: "A launcher for playing on a PC with a controller, no mouse or keyboard needed. Open source, written in Rust and React." },
     stack: "Tauri 2 · Rust · React 19 · TypeScript",
     repo: "https://github.com/massimiliano-dev/GameMode",
@@ -169,6 +178,9 @@ export const projects: Project[] = [
     kind: { it: "Libreria TypeScript · open source", en: "TypeScript library · open source" },
     year: "2026",
     summary: { it: "Client non ufficiale per il gateway del Fascicolo Sanitario Elettronico 2.0. Controlla i documenti CDA2 prima dell'invio e prepara le richieste firmate, con una CLI e un modulo NestJS.", en: "An unofficial client for the gateway of Italy's electronic health record (FSE 2.0). It checks CDA2 documents before they are sent and prepares signed requests, with a CLI and a NestJS module." },
+    problem: { it: "Per inviare un documento al Fascicolo Sanitario Elettronico 2.0 un software deve validare il CDA2, allegarlo al PDF, firmare due JWT e chiamare il gateway con un certificato client. Le specifiche ufficiali descrivono undici passaggi, ognuno con i suoi dettagli: la libreria automatizza quelli che si possono automatizzare.", en: "To send a document to Italy's electronic health record (FSE 2.0), software has to validate the CDA2, attach it to the PDF, sign two JWTs and call the gateway with a client certificate. The official specifications describe eleven steps, each with its own details, and the library automates the ones that can be automated." },
+    audience: { it: "Software house e sviluppatori che collegano gestionali sanitari al gateway FSE 2.0.", en: "Software houses and developers connecting healthcare software to the FSE 2.0 gateway." },
+    status: { it: "Versione 0.x. Validazione, PDF, firma e chiamata di verifica funzionano. La pubblicazione del documento e il controllo dello stato non sono ancora fatti.", en: "Version 0.x. Validation, PDF, signing and the validation call work. Publishing the document and checking its status are not done yet." },
     lead: { it: "Un toolkit TypeScript per integrarsi con il gateway FSE 2.0: valida i documenti in locale, li allega al PDF del referto e firma le richieste. È un progetto non ufficiale, senza legami con il Ministero della Salute o Sogei.", en: "A TypeScript toolkit for integrating with the FSE 2.0 gateway: it validates documents locally, attaches them to the report PDF and signs the requests. It is unofficial and has no ties to the Ministero della Salute or Sogei." },
     stack: "TypeScript · NestJS · libxml2 WASM · pdf-lib · mTLS",
     features: [
@@ -222,6 +234,9 @@ export const projects: Project[] = [
     kind: { it: "Server MCP · open source", en: "MCP server · open source" },
     year: "2026",
     summary: { it: "Un server MCP che spiega perché il gateway FSE 2.0 rifiuta un documento CDA2 e cosa correggere. Si usa da Claude o dall'IDE e gira tutto in locale.", en: "An MCP server that explains why the FSE 2.0 gateway rejects a CDA2 document and what to fix. You use it from Claude or your IDE, and it runs entirely on your machine." },
+    problem: { it: "Quando il gateway FSE 2.0 rifiuta un documento risponde con un messaggio di regola in italiano, come ERRORE-4, e la correzione va cercata nelle guide di implementazione.", en: "When the FSE 2.0 gateway rejects a document, it answers with an Italian rule message such as ERRORE-4, and the fix has to be dug out of the implementation guides." },
+    audience: { it: "Sviluppatori che integrano il Fascicolo Sanitario Elettronico e usano un assistente come Claude nell'editor.", en: "Developers integrating with Italy's electronic health record who use an assistant such as Claude in their editor." },
+    status: { it: "Versione 0.x. Trasporti e controlli di sicurezza sono completi. Le spiegazioni coprono cinque regole e i dizionari sono un campione.", en: "Version 0.x. Transports and security checks are complete. Explanations cover five rules and the dictionaries are a sample." },
     lead: { it: "Un server MCP non ufficiale per chi integra il Fascicolo Sanitario Elettronico. Porta le regole del gateway dentro l'assistente, così si chiede direttamente perché un documento è stato rifiutato. Non fa chiamate di rete.", en: "An unofficial MCP server for developers integrating with Italy's electronic health record. It brings the gateway's rules into your assistant, so you can ask directly why a document was rejected. It makes no network calls." },
     stack: "TypeScript · Model Context Protocol · Zod · HL7 CDA",
     features: [
@@ -283,6 +298,9 @@ export const projects: Project[] = [
     kind: { it: "Toolkit NestJS · open source", en: "NestJS toolkit · open source" },
     year: "2026",
     summary: { it: "Un database PostgreSQL per ogni cliente in un'app NestJS con Prisma 7. Manda ogni richiesta al database giusto, migra tutti i database partendo da un canary e isola il cliente il cui database smette di rispondere.", en: "One PostgreSQL database per customer in a NestJS app with Prisma 7. It sends each request to the right database, migrates every database starting from a canary and isolates a customer whose database stops responding." },
+    problem: { it: "Un database PostgreSQL per cliente isola bene i dati, ma lascia al team molto lavoro ripetitivo: il registro dei clienti, le connessioni giuste per ogni richiesta, le migrazioni su decine di database. Con 200 clienti non si possono tenere aperti 200 pool contro le 100 connessioni di default di PostgreSQL.", en: "One PostgreSQL database per customer isolates data well, but leaves the team plenty of repetitive work: the customer registry, the right connection for each request, migrations across dozens of databases. With 200 customers you cannot keep 200 pools open against PostgreSQL's default of 100 connections." },
+    audience: { it: "Team che costruiscono un SaaS con NestJS e Prisma e vogliono un database per cliente.", en: "Teams building a SaaS with NestJS and Prisma who want a database per customer." },
+    status: { it: "Versione 0.x: prima dell'1.0 l'API può cambiare. C'è l'adattatore per Prisma, quello per Drizzle è in programma.", en: "Version 0.x: the API may change before 1.0. The Prisma adapter is there, a Drizzle one is planned." },
     lead: { it: "Un toolkit per le applicazioni NestJS in cui ogni cliente ha il suo database PostgreSQL e il suo ruolo di accesso. Raccoglie le parti che ogni team finisce per riscrivere, dal registro dei tenant alle migrazioni.", en: "A toolkit for NestJS apps where every customer has its own PostgreSQL database and login role. It collects the parts every team ends up rewriting, from the tenant registry to migrations." },
     stack: "TypeScript · NestJS · Prisma 7 · PostgreSQL",
     features: [
@@ -337,6 +355,9 @@ export const projects: Project[] = [
     kind: { it: "Template agenti AI · open source", en: "AI agent template · open source" },
     year: "2026",
     summary: { it: "Backend per agenti AI con NestJS e LangGraph.js, pensato per agenti che compiono azioni: prima di agire chiedono l'approvazione, e dati e budget di ogni cliente restano separati.", en: "An AI agent backend with NestJS and LangGraph.js, built for agents that take actions: they ask for approval before acting, and each customer's data and budget stay separate." },
+    problem: { it: "Collegare NestJS, un agente ReAct e un checkpointer PostgreSQL è facile, e gli esempi esistono già. Il difficile viene dopo la demo, quando l'agente usa strumenti che cambiano le cose e più clienti condividono la stessa installazione.", en: "Wiring NestJS, a ReAct agent and a PostgreSQL checkpointer is easy, and examples already exist. The hard part comes after the demo, when the agent uses tools that change things and several customers share one deployment." },
+    audience: { it: "Team che vogliono portare un agente AI in produzione in un'app usata da più clienti.", en: "Teams who want to put an AI agent into production in an app shared by several customers." },
+    status: { it: "Template in versione 0.x: compila, è tipizzato da capo a fondo e ha i test. Gli strumenti di esempio, una ricerca in un corpus finto e un'email che viene solo registrata, vanno sostituiti con i propri.", en: "Template at version 0.x: it compiles, is typed end to end and is tested. The example tools, a search over a fake corpus and an email that is only logged, are meant to be replaced with your own." },
     lead: { it: "Un template per mettere in produzione agenti AI che toccano dati veri, su un'installazione condivisa da più clienti. Comprende il backend NestJS con LangGraph.js e una chat Next.js essenziale.", en: "A template for running AI agents that touch real data in production, on one deployment shared by several customers. It includes the NestJS backend with LangGraph.js and a bare-bones Next.js chat." },
     stack: "TypeScript · NestJS · LangGraph.js · Next.js · PostgreSQL · OpenTelemetry",
     features: [

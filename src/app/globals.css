@@ -3,8 +3,8 @@
 /*
  * Portfolio di Massimiliano Polce.
  * Direzione "pinned poster" (tasteskill): qualcosa resta fermo mentre il resto cambia.
- * Proporzioni della palette dal direction sheet, colori presi da GameMode: fondo quasi nero,
- * inchiostro chiaro, un solo accento menta usato per l'azione principale e per il campo dei contatti.
+ * Fondo quasi nero, inchiostro chiaro, un solo accento azzurro (lo stesso blu del logo di GameMode)
+ * usato per l'azione principale e per il campo dei contatti.
  * Tipografia: Big Shoulders 800 maiuscolo per il display, Public Sans per il testo. Cinque misure in tutto.
  */
 
@@ -23,8 +23,8 @@
   --surface-2: #151a23;
   --ink: #f3f5f8;
   --muted: #a5aebb;
-  --accent: #5ef2c8;
-  --accent-ink: #032018;
+  --accent: #4aa3ff;
+  --accent-ink: #04121f;
 
   /* Le cinque misure: piccolo, testo, lead, titolo, display. */
   --step-small: 1rem;
@@ -135,7 +135,7 @@ a {
   color: var(--accent-ink);
 }
 .btn--accent:hover {
-  background: #8af7d9;
+  background: #7dbcff;
 }
 .btn--ink {
   background: var(--ink);
@@ -350,74 +350,142 @@ a {
   gap: 24px;
 }
 
-.hero__strip {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.filmstrip {
-  position: relative;
-  margin-top: clamp(24px, 4vh, 48px);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 300px;
-}
-.filmstrip__stage {
+/* La parete dei provini: un piano inclinato in 3D, tre file che scorrono piano in direzioni opposte. */
+.wall {
   position: relative;
   flex: 1;
-  min-height: 300px;
-  cursor: grab;
-  touch-action: pan-y;
+  min-height: 340px;
+  margin-top: clamp(20px, 3vh, 40px);
+  overflow: hidden;
+  perspective: 1400px;
+  perspective-origin: 50% 20%;
 }
-.filmstrip__stage:active {
-  cursor: grabbing;
-}
-.filmstrip__stage:focus-visible {
-  outline-offset: -3px;
-}
-.filmstrip__canvas {
-  position: absolute !important;
-  inset: 0;
-}
-.strip--hero {
-  --h: min(38svh, 340px);
-  padding-inline: var(--margin);
-  scroll-padding-inline: var(--margin);
-}
-.strip--hero li:not(:first-child) img {
-  filter: brightness(0.55);
-}
-.strip--hero li:hover img,
-.strip--hero li:focus-within img {
-  filter: none;
-}
-/* Quando la pellicola 3D è pronta, la striscia vera lascia il posto (resta nel DOM per i lettori di schermo). */
-.filmstrip[data-ready="true"] .strip--hero {
-  display: none;
-}
-.filmstrip:not([data-ready="true"]) .filmstrip__stage {
+.wall__tilt {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  opacity: 0;
+  transform-style: preserve-3d;
 }
-.filmstrip__caption {
+.wall__plane {
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  top: 2%;
+  display: grid;
+  gap: 12px;
+  transform: rotateX(24deg) rotateZ(-5deg);
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+}
+.wall__row {
+  display: flex;
+  width: max-content;
+  animation: wall-left 120s linear infinite;
+}
+.wall__row--1 {
+  animation-name: wall-right;
+  animation-duration: 150s;
+}
+.wall__row--2 {
+  animation-duration: 135s;
+}
+.wall:hover .wall__row {
+  animation-play-state: paused;
+}
+.wall__track {
+  list-style: none;
+  margin: 0;
+  padding: 0 12px 0 0;
+  display: flex;
+  gap: 12px;
+}
+.wall__track li {
+  --h: clamp(120px, 15vh, 168px);
+  height: var(--h);
+  width: calc(var(--h) * var(--ratio, 1.7778));
+  flex: 0 0 auto;
+}
+.wall__track a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface);
+  transition: transform 450ms var(--ease-out);
+}
+.wall__track img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.62) saturate(0.85);
+  transition: filter var(--t-ui) ease;
+}
+/* Il fotogramma sotto il puntatore si solleva, si accende e dice di che progetto è. */
+.wall__track a:hover,
+.wall__track a:focus-visible {
+  transform: translateZ(60px) scale(1.06);
+  z-index: 2;
+}
+.wall__track a:hover img,
+.wall__track a:focus-visible img {
+  filter: none;
+}
+.wall__track a::after {
+  content: attr(data-name);
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: var(--step-small);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--t-ui) ease,
+    transform var(--t-ui) var(--ease-out);
+}
+.wall__track a:hover::after,
+.wall__track a:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+@keyframes wall-left {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes wall-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.wall__hint {
   margin: 14px 0 0;
   padding-inline: var(--margin);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 0;
-  align-items: baseline;
-  min-height: 1.6em;
-}
-.filmstrip__kind {
-  color: var(--muted);
-}
-.filmstrip__hint {
-  margin-left: auto;
   color: var(--muted);
   font-size: var(--step-small);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wall__row {
+    animation: none;
+  }
+  .wall__plane {
+    transform: none;
+    left: var(--margin);
+    right: auto;
+  }
+  .wall__track a:hover,
+  .wall__track a:focus-visible {
+    transform: none;
+  }
 }
 
 @media (max-width: 899px) {
@@ -443,15 +511,16 @@ a {
     grid-column: 1;
     justify-self: start;
   }
-  .strip--hero {
-    --h: 46vw;
-  }
-  .filmstrip {
+  .wall {
     flex: none;
     min-height: 0;
+    height: 300px;
   }
-  .filmstrip__hint {
-    margin-left: 0;
+  .wall__track li {
+    --h: 84px;
+  }
+  .wall__plane {
+    gap: 8px;
   }
 }
 
@@ -539,11 +608,20 @@ a {
   font-variant-numeric: tabular-nums;
 }
 .run__summary {
+  margin: 8px 0 0;
+  padding-right: var(--margin);
+  max-width: 68ch;
+}
+.run__audience {
   margin: 6px 0 0;
   padding-right: var(--margin);
-  max-width: 70ch;
+  max-width: 68ch;
   color: var(--muted);
   font-size: var(--step-small);
+}
+.run__audience span {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 @media (max-width: 899px) {
@@ -740,7 +818,7 @@ a {
 .marquee__row li {
   height: 150px;
   width: 267px;
-  background: #4bd9b2;
+  background: #3b93ee;
   overflow: hidden;
 }
 .marquee__row img {
@@ -783,7 +861,7 @@ a {
   justify-content: space-between;
   gap: 8px;
   border-radius: var(--radius);
-  background: #4bd9b2;
+  background: #3b93ee;
   color: var(--accent-ink);
   text-decoration: none;
   transition:
@@ -791,7 +869,7 @@ a {
     transform var(--t-press) var(--ease-out);
 }
 .cell:hover {
-  background: #84f6d6;
+  background: #8cc4ff;
 }
 .cell:active {
   transform: scale(0.99);
@@ -809,7 +887,7 @@ a {
   color: var(--accent);
 }
 .cell--primary:hover {
-  background: #0a3a2e;
+  background: #0b2236;
 }
 .contact__small {
   display: flex;
@@ -895,7 +973,7 @@ a {
   transition: background-color var(--t-hover) ease;
 }
 .tile--invite:hover {
-  background: #8af7d9;
+  background: #7dbcff;
 }
 .tile__big {
   margin: 0;
@@ -1024,6 +1102,59 @@ a {
   color: var(--muted);
   font-size: var(--step-small);
 }
+/* Il problema, per chi, a che punto è */
+.explain {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 32px;
+  padding: clamp(80px, 9vw, 140px) var(--margin) 0;
+}
+.explain__main {
+  grid-column: 1 / span 7;
+}
+.explain__side {
+  grid-column: span 5;
+}
+.explain__main + .explain__side {
+  grid-column: 9 / span 4;
+}
+.explain__main + .explain__side + .explain__side {
+  grid-column: 9 / span 4;
+  grid-row: 2;
+}
+.explain__label {
+  margin: 0 0 10px;
+  font-size: var(--step-small);
+  font-weight: 600;
+  color: var(--accent);
+}
+.explain__problem {
+  margin: 0;
+  font-size: var(--step-lead);
+  line-height: 1.38;
+}
+.explain p {
+  margin: 0;
+}
+@media (min-width: 900px) {
+  .explain__main {
+    grid-row: 1 / span 2;
+  }
+}
+@media (max-width: 899px) {
+  .explain {
+    grid-template-columns: 1fr;
+  }
+  .explain__main,
+  .explain__side,
+  .explain__main + .explain__side,
+  .explain__main + .explain__side + .explain__side {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
 .pd-features {
   padding: var(--section-gap) var(--margin) 0;
 }

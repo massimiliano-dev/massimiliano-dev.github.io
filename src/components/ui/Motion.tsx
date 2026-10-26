@@ -4,7 +4,6 @@ import { useGSAP } from "@gsap/react";
 import Lenis from "lenis";
 
 import { gsap, ScrollTrigger, SplitText } from "@/lib/gsap";
-import { useScene } from "@/lib/scene-store";
 
 import { setLenis } from "./scroll";
 
@@ -18,14 +17,6 @@ const OUT = "power4.out";
 export function Motion() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
-
-    // Il puntatore, normalizzato, per la scena 3D.
-    const onPointer = (e: PointerEvent) => {
-      useScene.setState({
-        pointer: { x: (e.clientX / window.innerWidth) * 2 - 1, y: -((e.clientY / window.innerHeight) * 2 - 1) },
-      });
-    };
-    window.addEventListener("pointermove", onPointer, { passive: true });
 
     // Le strisce si trascinano anche con il mouse (con le dita e il trackpad scorrono già da sole).
     const cleanups: (() => void)[] = [];
@@ -86,6 +77,20 @@ export function Motion() {
         lenis.destroy();
         setLenis(null);
       };
+    });
+
+    // Con il mouse la parete si inclina appena verso il puntatore.
+    mm.add("(prefers-reduced-motion: no-preference) and (pointer: fine)", () => {
+      const tilt = document.querySelector<HTMLElement>("[data-wall-tilt]");
+      if (!tilt) return;
+      const rx = gsap.quickTo(tilt, "rotationX", { duration: 1, ease: "power3.out" });
+      const ry = gsap.quickTo(tilt, "rotationY", { duration: 1, ease: "power3.out" });
+      const onMove = (e: PointerEvent) => {
+        ry(((e.clientX / window.innerWidth) * 2 - 1) * 4);
+        rx(-((e.clientY / window.innerHeight) * 2 - 1) * 3);
+      };
+      window.addEventListener("pointermove", onMove, { passive: true });
+      return () => window.removeEventListener("pointermove", onMove);
     });
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -165,19 +170,22 @@ export function Motion() {
         });
       });
 
-      // La pellicola dell'hero si allontana mentre la pagina scende.
-      const hero = document.querySelector<HTMLElement>("[data-hero]");
-      if (hero)
-        ScrollTrigger.create({
-          trigger: hero,
-          start: "top top",
-          end: "bottom top",
-          onUpdate: (self) => useScene.setState({ heroProgress: self.progress }),
-        });
+      // La parete dei provini: si raddrizza mentre la pagina scende.
+      const wall = document.querySelector<HTMLElement>("[data-wall-plane]");
+      if (wall)
+        gsap.fromTo(
+          wall,
+          { rotationX: 24, rotationZ: -5 },
+          {
+            rotationX: 4,
+            rotationZ: 0,
+            ease: "none",
+            scrollTrigger: { trigger: "[data-hero]", start: "top top", end: "bottom top", scrub: true },
+          },
+        );
     });
 
     return () => {
-      window.removeEventListener("pointermove", onPointer);
       cleanups.forEach((c) => c());
       mm.revert();
     };

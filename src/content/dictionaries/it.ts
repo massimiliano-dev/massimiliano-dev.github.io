@@ -3,7 +3,7 @@ const it = {
   meta: {
     title: "Massimiliano Polce, full-stack developer",
     description:
-      "Costruisco software dal database all'interfaccia: gestionali, piattaforme web, app desktop e librerie open source.",
+      "Full-stack developer: sviluppo applicazioni web e software su misura, e pubblico progetti open source.",
   },
   skip: "Vai al contenuto",
   nav: {
@@ -18,11 +18,11 @@ const it = {
   hero: {
     who: "Full-stack developer in Italia.",
     sentence:
-      "Costruisco software dal database all'interfaccia: di giorno gestionali e piattaforme web, la sera librerie open source e un launcher per giocare con il controller.",
+      "Sviluppo applicazioni web e software su misura, lavorando sia sul backend sia sull'interfaccia. Nel tempo libero pubblico progetti open source.",
     action: "Guarda i progetti",
     contact: "Scrivimi",
     stripLabel: "Fotogrammi dei progetti",
-    stripHint: "Trascina per sfogliare, clic per aprire il progetto.",
+    stripHint: "Clic su un fotogramma per aprire il suo progetto.",
   },
   projects: {
     title: "Progetti",
@@ -37,6 +37,9 @@ const it = {
     repo: "Codice su GitHub",
     download: "Scarica per Windows",
     site: "Apri il sito",
+    problem: "Il problema",
+    audience: "Per chi",
+    status: "A che punto è",
     featuresTitle: "Cosa fa",
     figuresTitle: "Dentro il repository",
     next: "Prossimo progetto",
@@ -44,7 +47,7 @@ const it = {
   about: {
     title: "Chi sono",
     paragraph:
-      "Scrivo software dal database all'interfaccia. Di giorno costruisco gestionali, CRM e piattaforme SaaS, quasi sempre con Next.js, TypeScript e PostgreSQL. La sera lavoro a progetti miei: librerie open source per NestJS e per il Fascicolo Sanitario Elettronico, un template per agenti AI e GameMode, che mi ha portato su Rust e sulle API di Windows.",
+      "Per lavoro sviluppo gestionali, CRM e piattaforme SaaS, quasi sempre con Next.js, TypeScript e PostgreSQL, e seguo i progetti dal modello dei dati fino all'interfaccia. Fuori dal lavoro ho i miei progetti: librerie open source per NestJS e per il Fascicolo Sanitario Elettronico, un template per agenti AI e GameMode, che mi ha portato su Rust e sulle API di Windows.",
     facts: [
       ["Ruolo", "Full-stack developer"],
       ["Base", "Italia"],
@@ -90,13 +93,13 @@ const it = {
   },
   footer: {
     what: "Massimiliano Polce, full-stack developer",
-    statement: "Software dal database all'interfaccia.",
+    statement: "Applicazioni web e software su misura.",
     note: "Nessun cookie, nessun tracciamento",
     time: "Ora in Italia",
     invite: "Parliamo di un progetto",
   },
   controller: {
-    connected: "Controller collegato: su e giù per le sezioni, A per aprire, sinistra e destra per sfogliare.",
+    connected: "Controller collegato: su e giù per le sezioni, A per aprire.",
   },
   root: {
     choose: "Scegli la lingua",

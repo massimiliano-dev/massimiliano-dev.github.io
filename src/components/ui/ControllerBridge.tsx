@@ -2,15 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-import { useScene } from "@/lib/scene-store";
-
 import { scrollToSection } from "./scroll";
 
 // Mappa standard della Gamepad API (layout Xbox), la stessa che usa GameMode.
 const PAD_UP = 12;
 const PAD_DOWN = 13;
-const PAD_LEFT = 14;
-const PAD_RIGHT = 15;
 const BUTTON_A = 0;
 
 function sections(): HTMLElement[] {
@@ -29,7 +25,7 @@ function currentIndex(list: HTMLElement[]) {
 
 /**
  * Con un controller collegato il sito si usa come GameMode: su e giù cambiano sezione,
- * A apre l'azione della sezione, sinistra e destra sfogliano la pellicola dell'hero.
+ * A apre l'azione della sezione.
  */
 export function ControllerBridge({ message }: { message: string }) {
   const [toast, setToast] = useState(false);
@@ -45,15 +41,6 @@ export function ControllerBridge({ message }: { message: string }) {
       if (!pad) {
         frame = 0;
         return;
-      }
-      // Sinistra e destra sfogliano la pellicola, un fotogramma per pressione.
-      for (const [button, step] of [
-        [PAD_LEFT, -1],
-        [PAD_RIGHT, 1],
-      ] as const) {
-        const down = !!pad.buttons[button]?.pressed;
-        if (down && !previous.get(button)) useScene.getState().nudge(step);
-        previous.set(button, down);
       }
       for (const button of [PAD_UP, PAD_DOWN]) {
         const down = !!pad.buttons[button]?.pressed;

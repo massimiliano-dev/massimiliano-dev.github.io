@@ -4,7 +4,7 @@ const en: Dictionary = {
   meta: {
     title: "Massimiliano Polce, full-stack developer",
     description:
-      "I build software from the database to the interface: business tools, web platforms, desktop apps and open source libraries.",
+      "Full-stack developer: I build web applications and custom software, and publish open source projects.",
   },
   skip: "Skip to content",
   nav: {
@@ -19,11 +19,11 @@ const en: Dictionary = {
   hero: {
     who: "Full-stack developer in Italy.",
     sentence:
-      "I build software from the database to the interface: business tools and web platforms by day, open source libraries and a game launcher for controllers by night.",
+      "I build web applications and custom software, working on both the backend and the interface. In my spare time I publish open source projects.",
     action: "See the projects",
     contact: "Write to me",
     stripLabel: "Frames from the projects",
-    stripHint: "Drag to browse, click to open the project.",
+    stripHint: "Click a frame to open its project.",
   },
   projects: {
     title: "Projects",
@@ -38,6 +38,9 @@ const en: Dictionary = {
     repo: "Code on GitHub",
     download: "Download for Windows",
     site: "Open the site",
+    problem: "The problem",
+    audience: "Who it's for",
+    status: "Where it stands",
     featuresTitle: "What it does",
     figuresTitle: "Inside the repository",
     next: "Next project",
@@ -45,7 +48,7 @@ const en: Dictionary = {
   about: {
     title: "About",
     paragraph:
-      "I write software from the database to the interface. By day I build management tools, CRMs and SaaS platforms, mostly with Next.js, TypeScript and PostgreSQL. At night I work on my own projects: open source libraries for NestJS and for Italy's electronic health record, a template for AI agents, and GameMode, which pulled me into Rust and the Windows APIs.",
+      "At work I build management tools, CRMs and SaaS platforms, mostly with Next.js, TypeScript and PostgreSQL, and I take projects from the data model to the interface. Outside work I have my own projects: open source libraries for NestJS and for Italy's electronic health record, a template for AI agents, and GameMode, which pulled me into Rust and the Windows APIs.",
     facts: [
       ["Role", "Full-stack developer"],
       ["Based in", "Italy"],
@@ -91,13 +94,13 @@ const en: Dictionary = {
   },
   footer: {
     what: "Massimiliano Polce, full-stack developer",
-    statement: "Software from the database to the interface.",
+    statement: "Web applications and custom software.",
     note: "No cookies, no tracking",
     time: "Time in Italy",
     invite: "Let's talk about a project",
   },
   controller: {
-    connected: "Controller connected: up and down for sections, A to open, left and right to browse.",
+    connected: "Controller connected: up and down for sections, A to open.",
   },
   root: {
     choose: "Choose a language",

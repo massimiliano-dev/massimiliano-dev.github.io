@@ -53,6 +53,9 @@ export function Projects({ t, lang }: { t: Dictionary; lang: Locale }) {
                 <span className="run__year">{p.year}</span>
               </div>
               <p className="run__summary">{p.summary[lang]}</p>
+              <p className="run__audience">
+                <span>{t.project.audience}:</span> {p.audience[lang]}
+              </p>
             </article>
           );
         })}

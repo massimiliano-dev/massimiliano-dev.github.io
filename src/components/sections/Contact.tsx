@@ -6,7 +6,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { withBase } from "@/lib/paths";
 import { sectionIds } from "@/lib/sections";
 
-/** "Photo strip, three-cell bar": campo menta, una fila di fotogrammi che scorre, il titolo e tre blocchi pieni. */
+/** "Photo strip, three-cell bar": campo blu, una fila di fotogrammi che scorre, il titolo e tre blocchi pieni. */
 export function Contact({ t, lang }: { t: Dictionary; lang: Locale }) {
   const id = sectionIds(lang).contact;
   const frames = projects.flatMap((p) => framesOf(p, lang)).filter((f) => f.ratio > 1);

@@ -81,6 +81,21 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
         {project.screenCaption && <p className="pd-strip__caption">{project.screenCaption[lang]}</p>}
       </section>
 
+      <section className="explain" aria-label={t.project.problem}>
+        <div className="explain__main" data-reveal="rise">
+          <h2 className="explain__label">{t.project.problem}</h2>
+          <p className="explain__problem">{project.problem[lang]}</p>
+        </div>
+        <div className="explain__side" data-reveal="rise">
+          <h2 className="explain__label">{t.project.audience}</h2>
+          <p>{project.audience[lang]}</p>
+        </div>
+        <div className="explain__side" data-reveal="rise">
+          <h2 className="explain__label">{t.project.status}</h2>
+          <p>{project.status[lang]}</p>
+        </div>
+      </section>
+
       {project.features && project.features.length > 0 && (
         <section className="pd-features" aria-labelledby="features-title">
           <h2 className="pd-features__title display" id="features-title" data-reveal="rise">
