@@ -43,7 +43,6 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
               <dd>{project.stack}</dd>
             </div>
           </dl>
-          <p className="pd-head__lead">{project.lead[lang]}</p>
           <div className="pd-head__actions">
             {project.repo && (
               <a className="btn btn--accent" href={project.repo} target="_blank" rel="noreferrer" data-primary>
@@ -57,6 +56,29 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
             )}
           </div>
         </div>
+      </section>
+
+      <section className="intro" aria-labelledby="intro-title">
+        <h2 className="intro__title display" id="intro-title" data-reveal="rise">
+          {t.project.intro}
+        </h2>
+        <div className="intro__text">
+          {project.intro[lang].map((para) => (
+            <p key={para.slice(0, 24)} data-reveal="rise">
+              {para}
+            </p>
+          ))}
+        </div>
+        <dl className="intro__facts" data-reveal="list">
+          <div>
+            <dt>{t.project.audience}</dt>
+            <dd>{project.audience[lang]}</dd>
+          </div>
+          <div>
+            <dt>{t.project.status}</dt>
+            <dd>{project.status[lang]}</dd>
+          </div>
+        </dl>
       </section>
 
       {/* La striscia grande: tutte le immagini del progetto, da trascinare di lato. */}
@@ -81,19 +103,18 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
         {project.screenCaption && <p className="pd-strip__caption">{project.screenCaption[lang]}</p>}
       </section>
 
-      <section className="explain" aria-label={t.project.problem}>
-        <div className="explain__main" data-reveal="rise">
-          <h2 className="explain__label">{t.project.problem}</h2>
-          <p className="explain__problem">{project.problem[lang]}</p>
-        </div>
-        <div className="explain__side" data-reveal="rise">
-          <h2 className="explain__label">{t.project.audience}</h2>
-          <p>{project.audience[lang]}</p>
-        </div>
-        <div className="explain__side" data-reveal="rise">
-          <h2 className="explain__label">{t.project.status}</h2>
-          <p>{project.status[lang]}</p>
-        </div>
+      <section className="solves" aria-labelledby="solves-title">
+        <h2 className="solves__title display" id="solves-title" data-reveal="rise">
+          {t.project.solves}
+        </h2>
+        <ul className="solves__list">
+          {project.solves.map((item) => (
+            <li className="solve" key={item.problem.en} data-reveal="rise">
+              <p className="solve__problem">{item.problem[lang]}</p>
+              <p className="solve__answer">{item.answer[lang]}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {project.features && project.features.length > 0 && (

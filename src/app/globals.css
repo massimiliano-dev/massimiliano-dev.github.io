@@ -1063,10 +1063,12 @@ a {
   margin-top: 28px;
 }
 .pd-head__facts {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 9;
   margin: 0;
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  justify-content: start;
+  gap: 12px 48px;
 }
 .pd-head__facts dt {
   color: var(--muted);
@@ -1084,9 +1086,10 @@ a {
 .pd-head__actions {
   grid-column: 10 / span 3;
   justify-self: end;
+  align-self: end;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 10px;
 }
 .pd-strip {
@@ -1102,56 +1105,111 @@ a {
   color: var(--muted);
   font-size: var(--step-small);
 }
-/* Il problema, per chi, a che punto è */
-.explain {
+/* Cos'è: l'introduzione, con per chi e a che punto è */
+.intro {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: 24px;
-  row-gap: 32px;
-  padding: clamp(80px, 9vw, 140px) var(--margin) 0;
-}
-.explain__main {
-  grid-column: 1 / span 7;
-}
-.explain__side {
-  grid-column: span 5;
-}
-.explain__main + .explain__side {
-  grid-column: 9 / span 4;
-}
-.explain__main + .explain__side + .explain__side {
-  grid-column: 9 / span 4;
-  grid-row: 2;
-}
-.explain__label {
-  margin: 0 0 10px;
-  font-size: var(--step-small);
-  font-weight: 600;
-  color: var(--accent);
-}
-.explain__problem {
-  margin: 0;
-  font-size: var(--step-lead);
-  line-height: 1.38;
-}
-.explain p {
-  margin: 0;
-}
-@media (min-width: 900px) {
-  .explain__main {
-    grid-row: 1 / span 2;
-  }
+  row-gap: 24px;
+  padding: clamp(56px, 5vw, 80px) var(--margin) 0;
 }
 @media (max-width: 899px) {
-  .explain {
-    grid-template-columns: 1fr;
+  .intro {
+    padding-top: var(--section-gap);
   }
-  .explain__main,
-  .explain__side,
-  .explain__main + .explain__side,
-  .explain__main + .explain__side + .explain__side {
+}
+.intro__title {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: var(--step-head);
+}
+.intro__text {
+  grid-column: 1 / span 7;
+  display: grid;
+  gap: 20px;
+}
+.intro__text p {
+  margin: 0;
+  font-size: var(--step-lead);
+  line-height: 1.4;
+}
+.intro__facts {
+  grid-column: 9 / span 4;
+  margin: 0;
+  display: grid;
+  align-content: start;
+  gap: 24px;
+}
+.intro__facts dt {
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: var(--step-small);
+  font-weight: 600;
+}
+.intro__facts dd {
+  margin: 0;
+}
+
+/* Che problemi risolve: il problema a sinistra, la risposta a destra */
+.solves {
+  padding: var(--section-gap) var(--margin) 0;
+}
+.solves__title {
+  margin: 0 0 32px;
+  font-size: var(--step-head);
+}
+.solves__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.solve {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  padding: 22px;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.solve__problem {
+  grid-column: 1 / span 5;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--step-lead);
+  line-height: 1.35;
+}
+.solve__answer {
+  grid-column: 7 / span 6;
+  margin: 0;
+  font-size: var(--step-lead);
+  line-height: 1.35;
+  position: relative;
+}
+.solve__answer::before {
+  content: "→";
+  position: absolute;
+  left: -1.4em;
+  color: var(--accent);
+}
+@media (max-width: 899px) {
+  .intro,
+  .solve {
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+  }
+  .intro__text,
+  .intro__facts,
+  .solve__problem,
+  .solve__answer {
     grid-column: 1;
-    grid-row: auto;
+  }
+  .solve__answer {
+    padding-left: 1.4em;
+  }
+  .solve__answer::before {
+    left: 0;
   }
 }
 
@@ -1225,16 +1283,18 @@ a {
     row-gap: 14px;
   }
   .pd-head__facts,
-  .pd-head__lead,
   .pd-head__actions,
   .feat__head,
   .feat__text,
   .feat__shot {
     grid-column: 1;
   }
+  .pd-head__facts {
+    grid-template-columns: 1fr;
+  }
   .pd-head__actions {
     justify-self: start;
-    align-items: flex-start;
+    justify-content: flex-start;
   }
   .strip--big {
     --h: 52vw;

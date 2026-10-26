@@ -49,8 +49,10 @@ export interface Project {
   year: string;
   /** Una o due frasi per l'indice in home. */
   summary: Localized;
-  /** Il problema da cui parte il progetto. */
-  problem: Localized;
+  /** L'introduzione della pagina: cosa fa e a cosa serve, un paragrafo per voce. */
+  intro: Record<Locale, string[]>;
+  /** I problemi concreti che risolve, ognuno con la risposta del progetto. */
+  solves: { problem: Localized; answer: Localized }[];
   /** A chi serve. */
   audience: Localized;
   /** A che punto è: versione e cosa manca. */
@@ -90,7 +92,34 @@ export const projects: Project[] = [
       it: "GameMode guidato dalla tastiera come da un pad: la home, la libreria, il menu del tasto Guide.",
       en: "GameMode driven from the keyboard as if from a pad: the home screen, the library, the Guide button menu.",
     },
-    problem: { it: "Su un PC Windows i giochi sono sparsi tra Steam, Xbox, Epic, GOG e altri launcher, ognuno con la sua finestra pensata per mouse e tastiera. Dal divano, con un controller in mano, il desktop di Windows non si usa.", en: "On a Windows PC, games are spread across Steam, Xbox, Epic, GOG and other launchers, each with its own window built for mouse and keyboard. From the couch, with a controller in hand, the Windows desktop is not usable." },
+    intro: {
+      it: [
+        "GameMode è un launcher per Windows che si usa tutto con il controller. Raccoglie in una sola libreria i giochi installati da Steam, Xbox, Epic, GOG, EA, Ubisoft e dagli emulatori, scarica copertine e dettagli e avvia ogni gioco con un tasto.",
+        "Serve a usare un PC come una console: collegato alla TV o su una portatile da gioco con Windows, senza prendere mai mouse e tastiera. Durante la partita il tasto Guide apre un pannello sopra il gioco, e il telefono può fare da telecomando.",
+      ],
+      en: [
+        "GameMode is a Windows launcher you use entirely with a controller. It gathers the games installed from Steam, Xbox, Epic, GOG, EA, Ubisoft and emulators into one library, fetches covers and details, and starts any game with one button.",
+        "It lets you use a PC like a console: hooked up to a TV or on a Windows gaming handheld, without ever reaching for mouse and keyboard. During a game the Guide button opens a panel on top of it, and your phone can work as a remote.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Ogni store ha il suo launcher e i giochi finiscono sparsi in finestre diverse.", en: "Every store has its own launcher, and games end up scattered across different windows." },
+        answer: { it: "Una libreria unica legge le installazioni di tutti gli store. I giochi Epic si installano con legendary, senza aprire il launcher di Epic.", en: "One library reads the installs from every store. Epic games install through legendary, without opening Epic's launcher." },
+      },
+      {
+        problem: { it: "Il desktop di Windows non si usa dal divano.", en: "The Windows desktop is not usable from the couch." },
+        answer: { it: "Il PC può avviarsi direttamente in GameMode, che prende il posto di Explorer. Se qualcosa va storto, un watchdog riporta Explorer.", en: "The PC can boot straight into GameMode, which takes Explorer's place. If something goes wrong, a watchdog brings Explorer back." },
+      },
+      {
+        problem: { it: "Per cambiare il volume o vedere la batteria del controller bisogna uscire dal gioco.", en: "Changing the volume or checking the controller battery means leaving the game." },
+        answer: { it: "Il tasto Guide apre un pannello sopra il gioco e lo mette in pausa finché resta aperto.", en: "The Guide button opens a panel on top of the game and pauses it while the panel is open." },
+      },
+      {
+        problem: { it: "Scrivere una password o cercare un gioco con il pad è lento.", en: "Typing a password or searching for a game with a pad is slow." },
+        answer: { it: "Il telefono diventa tastiera e telecomando dal browser, senza installare app.", en: "Your phone becomes a keyboard and remote from the browser, with no app to install." },
+      },
+    ],
     audience: { it: "Chi gioca sul PC collegato alla TV o su una console portatile con Windows.", en: "People who play on a PC hooked up to a TV, or on a Windows handheld." },
     status: { it: "Versione 0.2.6, con installer per Windows e aggiornamenti firmati su un canale stabile e uno beta.", en: "Version 0.2.6, with a Windows installer and signed updates on a stable and a beta channel." },
     lead: { it: "Un launcher per giocare sul PC con il controller, senza mouse né tastiera. Open source, scritto in Rust e React.", en: "A launcher for playing on a PC with a controller, no mouse or keyboard needed. Open source, written in Rust and React." },
@@ -178,7 +207,34 @@ export const projects: Project[] = [
     kind: { it: "Libreria TypeScript · open source", en: "TypeScript library · open source" },
     year: "2026",
     summary: { it: "Client non ufficiale per il gateway del Fascicolo Sanitario Elettronico 2.0. Controlla i documenti CDA2 prima dell'invio e prepara le richieste firmate, con una CLI e un modulo NestJS.", en: "An unofficial client for the gateway of Italy's electronic health record (FSE 2.0). It checks CDA2 documents before they are sent and prepares signed requests, with a CLI and a NestJS module." },
-    problem: { it: "Per inviare un documento al Fascicolo Sanitario Elettronico 2.0 un software deve validare il CDA2, allegarlo al PDF, firmare due JWT e chiamare il gateway con un certificato client. Le specifiche ufficiali descrivono undici passaggi, ognuno con i suoi dettagli: la libreria automatizza quelli che si possono automatizzare.", en: "To send a document to Italy's electronic health record (FSE 2.0), software has to validate the CDA2, attach it to the PDF, sign two JWTs and call the gateway with a client certificate. The official specifications describe eleven steps, each with its own details, and the library automates the ones that can be automated." },
+    intro: {
+      it: [
+        "fse-client è un insieme di pacchetti TypeScript per comunicare con il gateway del Fascicolo Sanitario Elettronico 2.0, il canale con cui le strutture sanitarie inviano i documenti clinici. Valida i documenti CDA2 in locale, li inserisce nel PDF del referto, firma le richieste e chiama il gateway su TLS reciproco.",
+        "Serve a chi sviluppa il software di una struttura sanitaria e deve inviare referti al FSE. Si usa come libreria Node.js, come modulo NestJS o da riga di comando con fse, che valida un file e prepara una richiesta di prova senza inviarla. Il progetto non è ufficiale.",
+      ],
+      en: [
+        "fse-client is a set of TypeScript packages for talking to the gateway of Italy's electronic health record (FSE 2.0), the channel healthcare providers use to send clinical documents. It validates CDA2 documents locally, embeds them in the report PDF, signs the requests and calls the gateway over mutual TLS.",
+        "It is for developers of healthcare software who have to send reports to the FSE. You use it as a Node.js library, as a NestJS module or from the command line with fse, which validates a file and prepares a test request without sending it. The project is unofficial.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Un documento sbagliato si scopre solo quando il gateway lo rifiuta.", en: "A wrong document only shows up when the gateway rejects it." },
+        answer: { it: "La validazione XSD gira in locale prima dell'invio, anche in CI, con un exit code.", en: "XSD validation runs locally before sending, in CI too, with an exit code." },
+      },
+      {
+        problem: { it: "Ogni richiesta va firmata con due JWT legati al PDF, con regole precise.", en: "Every request has to be signed with two JWTs bound to the PDF, following precise rules." },
+        answer: { it: "La libreria crea i due token RS256 a ogni richiesta, con l'hash SHA-256 del PDF.", en: "The library creates both RS256 tokens for every request, with the PDF's SHA-256 hash." },
+      },
+      {
+        problem: { it: "Log e messaggi d'errore rischiano di contenere dati sanitari e credenziali.", en: "Logs and error messages risk containing health data and credentials." },
+        answer: { it: "Ogni messaggio passa da un filtro che maschera token, chiavi, codici fiscali e contenuto clinico.", en: "Every message goes through a filter that masks tokens, keys, fiscal codes and clinical content." },
+      },
+      {
+        problem: { it: "Un XML ricevuto può nascondere un attacco XXE.", en: "An incoming XML document can hide an XXE attack." },
+        answer: { it: "I documenti con DOCTYPE o entità vengono rifiutati prima del parsing.", en: "Documents with a DOCTYPE or entities are refused before parsing." },
+      },
+    ],
     audience: { it: "Software house e sviluppatori che collegano gestionali sanitari al gateway FSE 2.0.", en: "Software houses and developers connecting healthcare software to the FSE 2.0 gateway." },
     status: { it: "Versione 0.x. Validazione, PDF, firma e chiamata di verifica funzionano. La pubblicazione del documento e il controllo dello stato non sono ancora fatti.", en: "Version 0.x. Validation, PDF, signing and the validation call work. Publishing the document and checking its status are not done yet." },
     lead: { it: "Un toolkit TypeScript per integrarsi con il gateway FSE 2.0: valida i documenti in locale, li allega al PDF del referto e firma le richieste. È un progetto non ufficiale, senza legami con il Ministero della Salute o Sogei.", en: "A TypeScript toolkit for integrating with the FSE 2.0 gateway: it validates documents locally, attaches them to the report PDF and signs the requests. It is unofficial and has no ties to the Ministero della Salute or Sogei." },
@@ -234,7 +290,34 @@ export const projects: Project[] = [
     kind: { it: "Server MCP · open source", en: "MCP server · open source" },
     year: "2026",
     summary: { it: "Un server MCP che spiega perché il gateway FSE 2.0 rifiuta un documento CDA2 e cosa correggere. Si usa da Claude o dall'IDE e gira tutto in locale.", en: "An MCP server that explains why the FSE 2.0 gateway rejects a CDA2 document and what to fix. You use it from Claude or your IDE, and it runs entirely on your machine." },
-    problem: { it: "Quando il gateway FSE 2.0 rifiuta un documento risponde con un messaggio di regola in italiano, come ERRORE-4, e la correzione va cercata nelle guide di implementazione.", en: "When the FSE 2.0 gateway rejects a document, it answers with an Italian rule message such as ERRORE-4, and the fix has to be dug out of the implementation guides." },
+    intro: {
+      it: [
+        "fse-mcp è un server Model Context Protocol: un componente che si collega ad assistenti come Claude Desktop, Claude Code o un IDE e offre loro quattro strumenti dedicati al Fascicolo Sanitario Elettronico 2.0.",
+        "Serve mentre si integra il FSE. Quando il gateway rifiuta un documento si incolla l'errore nella chat e l'assistente risponde con la regola ufficiale e la correzione. Può anche cercare codici LOINC o ICD9-CM e generare documenti di prova con dati inventati. Il progetto non è ufficiale.",
+      ],
+      en: [
+        "fse-mcp is a Model Context Protocol server: a component that plugs into assistants such as Claude Desktop, Claude Code or an IDE and gives them four tools for Italy's electronic health record (FSE 2.0).",
+        "It helps while you integrate with the FSE. When the gateway rejects a document, you paste the error into the chat and the assistant answers with the official rule and the fix. It can also look up LOINC or ICD9-CM codes and generate test documents with made-up data. The project is unofficial.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Gli errori del gateway sono codici come ERRORE-28 con un messaggio tecnico.", en: "Gateway errors are codes such as ERRORE-28 with a terse technical message." },
+        answer: { it: "Lo strumento restituisce la regola ufficiale, una spiegazione e la modifica da fare.", en: "The tool returns the official rule, an explanation and the change to make." },
+      },
+      {
+        problem: { it: "Trovare il codice e l'OID giusti nei dizionari richiede tempo.", en: "Finding the right code and OID in the dictionaries takes time." },
+        answer: { it: "Una ricerca per codice o descrizione restituisce anche l'OID del sistema di codifica.", en: "A search by code or description also returns the code system OID." },
+      },
+      {
+        problem: { it: "Per provare un'integrazione servono documenti realistici, ma senza dati veri.", en: "Testing an integration needs realistic documents, but no real data." },
+        answer: { it: "Gli scheletri CDA hanno paziente, medico e struttura inventati.", en: "The CDA skeletons have a made-up patient, doctor and facility." },
+      },
+      {
+        problem: { it: "Dati sanitari e assistenti AI non devono incontrarsi per sbaglio.", en: "Health data and AI assistants must not meet by accident." },
+        answer: { it: "Il server gira in locale, non fa chiamate di rete e rifiuta gli XML pericolosi.", en: "The server runs locally, makes no network calls and refuses dangerous XML." },
+      },
+    ],
     audience: { it: "Sviluppatori che integrano il Fascicolo Sanitario Elettronico e usano un assistente come Claude nell'editor.", en: "Developers integrating with Italy's electronic health record who use an assistant such as Claude in their editor." },
     status: { it: "Versione 0.x. Trasporti e controlli di sicurezza sono completi. Le spiegazioni coprono cinque regole e i dizionari sono un campione.", en: "Version 0.x. Transports and security checks are complete. Explanations cover five rules and the dictionaries are a sample." },
     lead: { it: "Un server MCP non ufficiale per chi integra il Fascicolo Sanitario Elettronico. Porta le regole del gateway dentro l'assistente, così si chiede direttamente perché un documento è stato rifiutato. Non fa chiamate di rete.", en: "An unofficial MCP server for developers integrating with Italy's electronic health record. It brings the gateway's rules into your assistant, so you can ask directly why a document was rejected. It makes no network calls." },
@@ -298,7 +381,34 @@ export const projects: Project[] = [
     kind: { it: "Toolkit NestJS · open source", en: "NestJS toolkit · open source" },
     year: "2026",
     summary: { it: "Un database PostgreSQL per ogni cliente in un'app NestJS con Prisma 7. Manda ogni richiesta al database giusto, migra tutti i database partendo da un canary e isola il cliente il cui database smette di rispondere.", en: "One PostgreSQL database per customer in a NestJS app with Prisma 7. It sends each request to the right database, migrates every database starting from a canary and isolates a customer whose database stops responding." },
-    problem: { it: "Un database PostgreSQL per cliente isola bene i dati, ma lascia al team molto lavoro ripetitivo: il registro dei clienti, le connessioni giuste per ogni richiesta, le migrazioni su decine di database. Con 200 clienti non si possono tenere aperti 200 pool contro le 100 connessioni di default di PostgreSQL.", en: "One PostgreSQL database per customer isolates data well, but leaves the team plenty of repetitive work: the customer registry, the right connection for each request, migrations across dozens of databases. With 200 customers you cannot keep 200 pools open against PostgreSQL's default of 100 connections." },
+    intro: {
+      it: [
+        "nestjs-prisma-tenants è un toolkit per applicazioni NestJS in cui ogni cliente, o tenant, ha il proprio database PostgreSQL e il proprio ruolo di accesso. È diviso in quattro pacchetti: il modulo NestJS, un nucleo indipendente dal framework, l'adattatore per Prisma 7 e la CLI tenants.",
+        "Serve ai SaaS che vogliono l'isolamento più forte tra clienti senza riscrivere ogni volta la stessa infrastruttura: creare i database, capire a quale cliente appartiene una richiesta, aprire la connessione giusta e migrare tutto in sicurezza.",
+      ],
+      en: [
+        "nestjs-prisma-tenants is a toolkit for NestJS apps where every customer, or tenant, has its own PostgreSQL database and login role. It comes in four packages: the NestJS module, a framework-independent core, the Prisma 7 adapter and the tenants CLI.",
+        "It is for SaaS products that want the strongest isolation between customers without rewriting the same infrastructure every time: creating the databases, working out which customer a request belongs to, opening the right connection and migrating everything safely.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Creare un cliente richiede database, ruolo, permessi, migrazioni e dati iniziali.", en: "Adding a customer takes a database, a role, permissions, migrations and seed data." },
+        answer: { it: "Un solo comando, tenants create, fa tutto e registra il cliente nel database di controllo.", en: "One command, tenants create, does all of it and records the customer in the control database." },
+      },
+      {
+        problem: { it: "Un pool di connessioni per ogni cliente esaurisce PostgreSQL.", en: "One connection pool per customer exhausts PostgreSQL." },
+        answer: { it: "Una cache tiene aperti solo i client usati di recente, con un limite di connessioni per cliente.", en: "A cache keeps only recently used clients open, with a connection limit per customer." },
+      },
+      {
+        problem: { it: "Se il database di un cliente cade, rischia di rallentare tutti.", en: "If one customer's database goes down, it can slow everyone down." },
+        answer: { it: "Un circuit breaker per cliente risponde subito 503 per quel cliente e lascia lavorare gli altri.", en: "A per-customer circuit breaker answers 503 straight away for that customer and lets the others work." },
+      },
+      {
+        problem: { it: "Migrare decine di database a mano è lento e rischioso.", en: "Migrating dozens of databases by hand is slow and risky." },
+        answer: { it: "La CLI mostra chi è indietro, simula la migrazione, parte da un canary e si ferma al primo errore.", en: "The CLI shows who is behind, simulates the migration, starts with a canary and stops at the first error." },
+      },
+    ],
     audience: { it: "Team che costruiscono un SaaS con NestJS e Prisma e vogliono un database per cliente.", en: "Teams building a SaaS with NestJS and Prisma who want a database per customer." },
     status: { it: "Versione 0.x: prima dell'1.0 l'API può cambiare. C'è l'adattatore per Prisma, quello per Drizzle è in programma.", en: "Version 0.x: the API may change before 1.0. The Prisma adapter is there, a Drizzle one is planned." },
     lead: { it: "Un toolkit per le applicazioni NestJS in cui ogni cliente ha il suo database PostgreSQL e il suo ruolo di accesso. Raccoglie le parti che ogni team finisce per riscrivere, dal registro dei tenant alle migrazioni.", en: "A toolkit for NestJS apps where every customer has its own PostgreSQL database and login role. It collects the parts every team ends up rewriting, from the tenant registry to migrations." },
@@ -355,7 +465,34 @@ export const projects: Project[] = [
     kind: { it: "Template agenti AI · open source", en: "AI agent template · open source" },
     year: "2026",
     summary: { it: "Backend per agenti AI con NestJS e LangGraph.js, pensato per agenti che compiono azioni: prima di agire chiedono l'approvazione, e dati e budget di ogni cliente restano separati.", en: "An AI agent backend with NestJS and LangGraph.js, built for agents that take actions: they ask for approval before acting, and each customer's data and budget stay separate." },
-    problem: { it: "Collegare NestJS, un agente ReAct e un checkpointer PostgreSQL è facile, e gli esempi esistono già. Il difficile viene dopo la demo, quando l'agente usa strumenti che cambiano le cose e più clienti condividono la stessa installazione.", en: "Wiring NestJS, a ReAct agent and a PostgreSQL checkpointer is easy, and examples already exist. The hard part comes after the demo, when the agent uses tools that change things and several customers share one deployment." },
+    intro: {
+      it: [
+        "langgraph-nestjs-template è un punto di partenza per il backend di un agente AI: un'API NestJS che esegue un agente LangGraph.js, con PostgreSQL per la memoria delle conversazioni e una chat Next.js essenziale per provarlo.",
+        "Serve quando l'agente deve fare cose con conseguenze, come inviare email o modificare dati, e quando la stessa installazione serve più clienti. Il template mette già insieme le parti di produzione e lascia volutamente minima la logica di business, da riempire con la propria.",
+      ],
+      en: [
+        "langgraph-nestjs-template is a starting point for an AI agent backend: a NestJS API that runs a LangGraph.js agent, with PostgreSQL for conversation memory and a bare-bones Next.js chat to try it out.",
+        "It is for when the agent has to do things with consequences, such as sending emails or changing data, and one deployment serves several customers. The template wires up the production parts and keeps the business logic deliberately minimal, ready for your own.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Un agente può eseguire un'azione sbagliata senza che nessuno la veda.", en: "An agent can carry out a wrong action without anyone seeing it." },
+        answer: { it: "Gli strumenti con effetti fermano l'agente finché una persona approva, anche correggendo gli argomenti.", en: "Tools with side effects stop the agent until a person approves, editing the arguments if needed." },
+      },
+      {
+        problem: { it: "Con più clienti sullo stesso sistema, le conversazioni non devono mescolarsi.", en: "With several customers on one system, conversations must not mix." },
+        answer: { it: "Ogni conversazione appartiene a un cliente, e per tutti gli altri non esiste.", en: "Every conversation belongs to one customer, and for everyone else it does not exist." },
+      },
+      {
+        problem: { it: "I costi dei modelli crescono senza che nessuno li controlli.", en: "Model costs grow without anyone keeping track." },
+        answer: { it: "Ogni cliente ha un limite di richieste e un budget mensile di token, e ogni traccia riporta il costo stimato.", en: "Each customer has a request limit and a monthly token budget, and every trace carries the estimated cost." },
+      },
+      {
+        problem: { it: "È difficile sapere se una modifica peggiora le risposte dell'agente.", en: "It is hard to tell whether a change makes the agent's answers worse." },
+        answer: { it: "Le eval girano su risposte registrate a ogni pull request, e ogni notte con il modello vero.", en: "Evals run on recorded responses on every pull request, and every night against the live model." },
+      },
+    ],
     audience: { it: "Team che vogliono portare un agente AI in produzione in un'app usata da più clienti.", en: "Teams who want to put an AI agent into production in an app shared by several customers." },
     status: { it: "Template in versione 0.x: compila, è tipizzato da capo a fondo e ha i test. Gli strumenti di esempio, una ricerca in un corpus finto e un'email che viene solo registrata, vanno sostituiti con i propri.", en: "Template at version 0.x: it compiles, is typed end to end and is tested. The example tools, a search over a fake corpus and an email that is only logged, are meant to be replaced with your own." },
     lead: { it: "Un template per mettere in produzione agenti AI che toccano dati veri, su un'installazione condivisa da più clienti. Comprende il backend NestJS con LangGraph.js e una chat Next.js essenziale.", en: "A template for running AI agents that touch real data in production, on one deployment shared by several customers. It includes the NestJS backend with LangGraph.js and a bare-bones Next.js chat." },
