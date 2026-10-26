@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Massimiliano Polce</title>
+<style>
+  html, body { margin: 0; background: #07090d; color: #f3f5f8; font: 17px/1.5 system-ui, sans-serif; }
+  main { min-height: 100svh; display: grid; place-content: center; gap: 8px; text-align: center; padding: 16px; }
+  a { color: #5ef2c8; }
+</style>
+<script>
+  // GitHub Pages serve questo file per ogni indirizzo che non esiste: si torna alla home nella lingua giusta.
+  (function () {
+    var lang = location.pathname.indexOf('/en') !== -1 || (navigator.language || '').slice(0, 2) === 'en' ? 'en' : 'it';
+    location.replace('/' + lang + '/');
+  })();
+</script>
+</head>
+<body>
+<main>
+  <p>Questa pagina non esiste. / This page does not exist.</p>
+  <p><a href="/it/">Italiano</a> · <a href="/en/">English</a></p>
+</main>
+</body>
+</html>
