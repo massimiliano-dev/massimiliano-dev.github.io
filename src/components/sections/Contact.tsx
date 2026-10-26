@@ -1,44 +1,59 @@
-import { ContactStack } from "@/components/ui/ContactStack";
+import { CopyEmail } from "@/components/ui/CopyEmail";
+import { projects } from "@/content/projects";
 import { type Locale, site } from "@/content/site";
+import { framesOf } from "@/lib/frames";
 import type { Dictionary } from "@/lib/i18n";
+import { withBase } from "@/lib/paths";
 import { sectionIds } from "@/lib/sections";
 
-/** "The email as display type": campo menta, l'email da margine a margine. */
+/** "Photo strip, three-cell bar": campo menta, una fila di fotogrammi che scorre, il titolo e tre blocchi pieni. */
 export function Contact({ t, lang }: { t: Dictionary; lang: Locale }) {
   const id = sectionIds(lang).contact;
-  const [local, domain] = site.email.split("@");
-  // Quanti caratteri deve contenere la riga più lunga: tutta l'email su desktop, una metà su telefono.
-  const fit = {
-    "--chars": site.email.length,
-    "--chars-phone": Math.max(local.length + 1, domain.length),
-  } as React.CSSProperties;
+  const frames = projects.flatMap((p) => framesOf(p, lang)).filter((f) => f.ratio > 1);
   return (
-    <section className="contact" id={id} aria-labelledby={`${id}-title`} data-contact>
-      <ContactStack />
-      <div>
+    <section className="contact" id={id} aria-labelledby={`${id}-title`}>
+      <div className="marquee" aria-hidden>
+        {/* Due copie della stessa fila: quando la prima esce a sinistra, la seconda è già al suo posto. */}
+        {[0, 1].map((copy) => (
+          <ul className="marquee__row" key={copy}>
+            {frames.map((f) => (
+              <li key={`${copy}-${f.src}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={withBase(f.thumb)} alt="" width={267} height={150} loading="lazy" />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+
+      <div className="contact__body">
         <h2 className="contact__title display" id={`${id}-title`} data-reveal="rise">
           {t.contact.title}
         </h2>
         <p className="contact__sentence" data-reveal="rise">
           {t.contact.sentence}
         </p>
-      </div>
-      <a className="contact__email display" href={`mailto:${site.email}`} style={fit} data-primary data-reveal="email">
-        <span>{local}@</span>
-        <span className="at">{domain}</span>
-      </a>
-      <div className="contact__foot" data-reveal="rise">
-        <span>{t.contact.place}</span>
-        <span className="contact__links">
-          <a className="link" href={site.github} target="_blank" rel="noreferrer">
-            GitHub
+
+        <div className="cells" data-reveal="list">
+          <a className="cell" href={site.github} target="_blank" rel="noreferrer">
+            <span className="cell__label">GitHub</span>
+            <span className="cell__value">{site.githubHandle}</span>
           </a>
           {site.linkedin && (
-            <a className="link" href={site.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
+            <a className="cell" href={site.linkedin} target="_blank" rel="noreferrer">
+              <span className="cell__label">LinkedIn</span>
+              <span className="cell__value">Massimiliano Polce</span>
             </a>
           )}
-        </span>
+          <a className="cell cell--primary" href={`mailto:${site.email}`} data-primary>
+            <span className="cell__label">{t.contact.email}</span>
+            <span className="cell__value">{site.email}</span>
+          </a>
+        </div>
+        <div className="contact__small">
+          <span>{t.contact.place}</span>
+          <CopyEmail email={site.email} label={t.contact.copy} done={t.contact.copied} />
+        </div>
       </div>
     </section>
   );

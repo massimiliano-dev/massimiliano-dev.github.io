@@ -16,16 +16,20 @@ const it = {
     switchShort: "EN",
   },
   hero: {
+    who: "Full-stack developer in Italia.",
     sentence:
-      "Full-stack developer. Costruisco software dal database all'interfaccia: di giorno gestionali e piattaforme web, la sera librerie open source e un launcher per giocare con il controller.",
+      "Costruisco software dal database all'interfaccia: di giorno gestionali e piattaforme web, la sera librerie open source e un launcher per giocare con il controller.",
     action: "Guarda i progetti",
-    hint: "La pila è il mio lavoro: dati in basso, server in mezzo, interfaccia in cima. Trascinala per girarla.",
-    sceneLabel: "Tre livelli in 3D impilati: database, server e interfaccia",
+    contact: "Scrivimi",
+    stripLabel: "Fotogrammi dei progetti",
+    stripHint: "Trascina per sfogliare, clic per aprire il progetto.",
   },
   projects: {
     title: "Progetti",
+    filters: { all: "Tutti", library: "Librerie", app: "App" },
     open: "Apri il progetto",
     code: "Codice",
+    frames: "{n} immagini",
     step: "{n} di {total}",
   },
   project: {
@@ -77,16 +81,22 @@ const it = {
     ],
   },
   contact: {
-    title: "Contatti",
-    sentence: "Scrivimi per un progetto o per un'offerta di lavoro.",
+    title: "Scrivimi",
+    sentence: "Per un progetto o un'offerta di lavoro.",
+    email: "Email",
+    copy: "Copia l'indirizzo",
+    copied: "Indirizzo copiato",
     place: "Italia",
   },
   footer: {
     what: "Massimiliano Polce, full-stack developer",
+    statement: "Software dal database all'interfaccia.",
     note: "Nessun cookie, nessun tracciamento",
+    time: "Ora in Italia",
+    invite: "Parliamo di un progetto",
   },
   controller: {
-    connected: "Controller collegato: su e giù per le sezioni, A per aprire, sinistra e destra per girare la pila.",
+    connected: "Controller collegato: su e giù per le sezioni, A per aprire, sinistra e destra per sfogliare.",
   },
   root: {
     choose: "Scegli la lingua",

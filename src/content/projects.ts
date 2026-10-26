@@ -33,9 +33,17 @@ export interface ProjectCover {
   focus?: string;
 }
 
+export interface ProjectImage {
+  image: string;
+  alt: Localized;
+  portrait?: boolean;
+}
+
 export interface Project {
   slug: string;
   name: string;
+  /** Per i filtri della sezione progetti. */
+  category: "app" | "library";
   /** Che cosa è, in poche parole: "App desktop · open source". */
   kind: Localized;
   year: string;
@@ -52,11 +60,14 @@ export interface Project {
   screenCaption?: Localized;
   features?: ProjectFeature[];
   figures?: ProjectFigure[];
+  /** Altre immagini da mostrare nelle strisce, oltre a copertina e funzioni. */
+  gallery?: ProjectImage[];
 }
 
 export const projects: Project[] = [
   {
     slug: "gamemode",
+    category: "app",
     name: "GameMode",
     kind: { it: "App desktop · open source", en: "Desktop app · open source" },
     year: "2026",
@@ -135,6 +146,15 @@ export const projects: Project[] = [
         portrait: true,
       },
     ],
+    gallery: [
+      {
+        image: "/projects/gamemode/home.webp",
+        alt: {
+          it: "La home di GameMode: Elden Ring in primo piano e la riga Continua a giocare con sei copertine",
+          en: "The GameMode home screen: Elden Ring up front and a Continue playing row with six covers",
+        },
+      },
+    ],
     figures: [
       { value: 30000, label: { it: "righe di Rust, più o meno", en: "lines of Rust, give or take" } },
       { value: 11400, label: { it: "righe di TypeScript e React", en: "lines of TypeScript and React" } },
@@ -144,6 +164,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fse-client",
+    category: "library",
     name: "fse-client",
     kind: { it: "Libreria TypeScript · open source", en: "TypeScript library · open source" },
     year: "2026",
@@ -196,6 +217,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fse-mcp",
+    category: "library",
     name: "fse-mcp",
     kind: { it: "Server MCP · open source", en: "MCP server · open source" },
     year: "2026",
@@ -256,6 +278,7 @@ export const projects: Project[] = [
   },
   {
     slug: "nestjs-prisma-tenants",
+    category: "library",
     name: "nestjs-prisma-tenants",
     kind: { it: "Toolkit NestJS · open source", en: "NestJS toolkit · open source" },
     year: "2026",
@@ -309,6 +332,7 @@ export const projects: Project[] = [
   },
   {
     slug: "langgraph-nestjs-template",
+    category: "library",
     name: "langgraph-nestjs-template",
     kind: { it: "Template agenti AI · open source", en: "AI agent template · open source" },
     year: "2026",

@@ -68,3 +68,15 @@ e soprattutto "non incentrarti solo su GameMode, arrivano altri 4 progetti".
 - Media: video e screenshot ricatturati a 1920×1080; nello stage le immagini 16:9 restano intere, mai ritagliate.
 - Inspector home: resta `few-pictures` (un solo progetto = una sola copertina). Si risolve con i prossimi progetti;
   non aggiungo immagini di GameMode in home per non ricentrare tutto su di lui.
+
+## Seconda direzione (26/10/2026): "The contact sheet"
+L'utente non apprezzava la direzione "pinned poster" e ha scelto tra quattro opzioni l'archivio a colpo d'occhio,
+tenendo tema scuro, 3D, molte animazioni e font. Deal: contact-sheet, seed 1388172855, --keep palette,type.
+- Hero "Lit strip, four corners" adattato: nome a tutta larghezza (la direzione chiede il nome a display size in alto),
+  tre blocchi di testo su griglia a 12 colonne, poi la striscia illuminata. La striscia è una pellicola 3D (R3F):
+  fotogrammi reali dei progetti su una curva, quello centrale acceso con un filo menta in bloom, trascinabile.
+  Fallback: striscia HTML con scroll-snap (telefono, movimento ridotto, niente script).
+- Lavoro "One strip per project": colonna ferma con titolo e filtri, una striscia trascinabile per progetto.
+- Contatti "Photo strip, three-cell bar": fascia di fotogrammi in marquee, tre blocchi (GitHub, LinkedIn, email).
+- Footer "A footer of tiles", con l'ora italiana.
+- Foto "City at night" dealt: non usate, le immagini sono tutte catture reali dei progetti (30 fotogrammi).

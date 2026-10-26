@@ -28,7 +28,7 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
         <About t={t} lang={lang} />
         <Contact t={t} lang={lang} />
       </main>
-      <Footer t={t} />
+      <Footer t={t} lang={lang} />
       <Motion />
       <ControllerBridge message={t.controller.connected} />
     </>

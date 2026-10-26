@@ -17,16 +17,20 @@ const en: Dictionary = {
     switchShort: "IT",
   },
   hero: {
+    who: "Full-stack developer in Italy.",
     sentence:
-      "Full-stack developer. I build software from the database to the interface: business tools and web platforms by day, open source libraries and a game launcher for controllers by night.",
+      "I build software from the database to the interface: business tools and web platforms by day, open source libraries and a game launcher for controllers by night.",
     action: "See the projects",
-    hint: "The stack is my job: data at the bottom, server in the middle, interface on top. Drag it to turn it.",
-    sceneLabel: "Three stacked 3D layers: database, server and interface",
+    contact: "Write to me",
+    stripLabel: "Frames from the projects",
+    stripHint: "Drag to browse, click to open the project.",
   },
   projects: {
     title: "Projects",
+    filters: { all: "All", library: "Libraries", app: "Apps" },
     open: "Open the project",
     code: "Code",
+    frames: "{n} images",
     step: "{n} of {total}",
   },
   project: {
@@ -78,16 +82,22 @@ const en: Dictionary = {
     ],
   },
   contact: {
-    title: "Contact",
-    sentence: "Write to me about a project or a job offer.",
+    title: "Write to me",
+    sentence: "About a project or a job offer.",
+    email: "Email",
+    copy: "Copy the address",
+    copied: "Address copied",
     place: "Italy",
   },
   footer: {
     what: "Massimiliano Polce, full-stack developer",
+    statement: "Software from the database to the interface.",
     note: "No cookies, no tracking",
+    time: "Time in Italy",
+    invite: "Let's talk about a project",
   },
   controller: {
-    connected: "Controller connected: up and down for sections, A to open, left and right to turn the stack.",
+    connected: "Controller connected: up and down for sections, A to open, left and right to browse.",
   },
   root: {
     choose: "Choose a language",

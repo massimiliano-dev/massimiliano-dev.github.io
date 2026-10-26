@@ -60,7 +60,7 @@ export default async function ProjectPage({ params }: PageProps<"/[lang]/[sectio
       <main>
         <ProjectDetail project={project} t={t} lang={lang} />
       </main>
-      <Footer t={t} />
+      <Footer t={t} lang={lang} />
       <Motion />
       <ControllerBridge message={t.controller.connected} />
     </>

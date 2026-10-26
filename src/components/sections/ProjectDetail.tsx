@@ -1,9 +1,8 @@
+import { Lightbox } from "@/components/ui/Lightbox";
 import { LoopVideo } from "@/components/ui/LoopVideo";
-import { Stage } from "@/components/ui/Stage";
-import { StageList } from "@/components/ui/StageList";
-import type { StageItem } from "@/components/ui/stage-types";
 import { type Project, projects } from "@/content/projects";
 import type { Locale } from "@/content/site";
+import { framesOf } from "@/lib/frames";
 import type { Dictionary } from "@/lib/i18n";
 import { withBase } from "@/lib/paths";
 import { projectPath, sectionIds } from "@/lib/sections";
@@ -13,75 +12,107 @@ const numberFormat: Record<Locale, Intl.NumberFormat> = {
   en: new Intl.NumberFormat("en-US"),
 };
 
-/** La pagina di un progetto: apertura con lo schermo che si raddrizza, le funzioni, i numeri. */
+/** La pagina di un progetto nello stesso linguaggio della home: testi piccoli, una striscia grande, righe ordinate. */
 export function ProjectDetail({ project, t, lang }: { project: Project; t: Dictionary; lang: Locale }) {
-  const features: StageItem[] = (project.features ?? []).map((f) => ({
-    key: f.image,
-    name: f.name[lang],
-    tags: f.tags,
-    text: f.text[lang],
-    image: f.image,
-    alt: f.alt[lang],
-    focus: f.focus,
-    portrait: f.portrait,
-  }));
+  const frames = framesOf(project, lang);
   const withPage = projects.filter((p) => p.features?.length);
   const next = withPage.length > 1 ? withPage[(withPage.indexOf(project) + 1) % withPage.length] : null;
+  const nextName = next ? next.name : t.projects.title;
+  const nextHref = withBase(next ? projectPath(lang, next.slug) : `/${lang}/#${sectionIds(lang).work}`);
 
   return (
     <>
-      <section className="showcase" aria-labelledby="project-title">
-        <div className="showcase__head">
-          <div>
-            <h1 className="showcase__name display" id="project-title" style={{ "--chars": project.name.length } as React.CSSProperties}>
-              <span className="hero__line">
-                <span data-load="name">{project.name}</span>
-              </span>
-            </h1>
-            <p className="showcase__kind" data-load="aside">
-              {project.kind[lang]} · {project.year}
-            </p>
-          </div>
-          <div className="showcase__side" data-load="aside">
-            <p className="showcase__lead">{project.lead[lang]}</p>
-            <div className="project__actions">
-              {project.repo && (
-                <a className="btn btn--accent" href={project.repo} target="_blank" rel="noreferrer" data-primary>
-                  {t.project.repo} <span className="btn__arrow" aria-hidden>→</span>
-                </a>
-              )}
-              {project.download && (
-                <a className="btn btn--quiet" href={project.download} target="_blank" rel="noreferrer">
-                  {t.project.download}
-                </a>
-              )}
-              {project.site && (
-                <a className="btn btn--quiet" href={project.site} target="_blank" rel="noreferrer">
-                  {t.project.site}
-                </a>
-              )}
+      <section className="pd-head" aria-labelledby="project-title">
+        <h1 className="pd-head__name display" id="project-title" style={{ "--chars": project.name.length } as React.CSSProperties}>
+          <span className="hero__line">
+            <span data-load="name">{project.name}</span>
+          </span>
+        </h1>
+        <div className="pd-head__blocks" data-load="aside">
+          <dl className="pd-head__facts">
+            <div>
+              <dt>{lang === "it" ? "Tipo" : "Type"}</dt>
+              <dd>{project.kind[lang]}</dd>
             </div>
-          </div>
-        </div>
-        <figure className="screen" data-screen>
-          <div className="screen__glass" data-screen-glass>
-            {project.cover.video ? (
-              <LoopVideo base={project.cover.video} poster={project.cover.image} label={project.cover.alt[lang]} />
-            ) : (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={withBase(project.cover.image)} alt={project.cover.alt[lang]} width={1920} height={1080} />
+            <div>
+              <dt>{lang === "it" ? "Anno" : "Year"}</dt>
+              <dd>{project.year}</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>{project.stack}</dd>
+            </div>
+          </dl>
+          <p className="pd-head__lead">{project.lead[lang]}</p>
+          <div className="pd-head__actions">
+            {project.repo && (
+              <a className="btn btn--accent" href={project.repo} target="_blank" rel="noreferrer" data-primary>
+                {t.project.repo} <span className="btn__arrow" aria-hidden>→</span>
+              </a>
+            )}
+            {project.download && (
+              <a className="btn btn--quiet" href={project.download} target="_blank" rel="noreferrer">
+                {t.project.download}
+              </a>
             )}
           </div>
-          {project.screenCaption && <figcaption className="screen__caption">{project.screenCaption[lang]}</figcaption>}
-        </figure>
+        </div>
       </section>
 
-      {features.length > 0 && (
-        <section className="work" aria-labelledby="features-title">
-          <div className="stagewrap" style={{ "--steps": features.length } as React.CSSProperties}>
-            <Stage title={t.project.featuresTitle} level={2} items={features} step={t.projects.step} />
-            <StageList title={t.project.featuresTitle} titleId="features-title" level={2} items={features} />
-          </div>
+      {/* La striscia grande: tutte le immagini del progetto, da trascinare di lato. */}
+      <section className="pd-strip" aria-label={project.name}>
+        <ul className="strip strip--big" data-drag data-frames>
+          {project.cover.video && (
+            <li style={{ "--ratio": 16 / 9 } as React.CSSProperties}>
+              <LoopVideo base={project.cover.video} poster={project.cover.image} label={project.cover.alt[lang]} />
+            </li>
+          )}
+          {frames
+            .filter((f) => !(project.cover.video && f.src === project.cover.image))
+            .map((f) => (
+              <li key={f.src} style={{ "--ratio": f.ratio } as React.CSSProperties}>
+                <button type="button" className="zoom" data-zoom={withBase(f.src)} data-alt={f.alt} aria-label={f.alt}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={withBase(f.thumb)} alt="" width={Math.round(540 * f.ratio)} height={540} loading="lazy" />
+                </button>
+              </li>
+            ))}
+        </ul>
+        {project.screenCaption && <p className="pd-strip__caption">{project.screenCaption[lang]}</p>}
+      </section>
+
+      {project.features && project.features.length > 0 && (
+        <section className="pd-features" aria-labelledby="features-title">
+          <h2 className="pd-features__title display" id="features-title" data-reveal="rise">
+            {t.project.featuresTitle}
+          </h2>
+          <ul className="pd-features__list">
+            {project.features.map((f) => (
+              <li className="feat" key={f.image} data-reveal="rise">
+                <div className="feat__head">
+                  <h3 className="feat__name">{f.name[lang]}</h3>
+                  <span className="feat__tags">{f.tags}</span>
+                </div>
+                <p className="feat__text">{f.text[lang]}</p>
+                <button
+                  type="button"
+                  className={`zoom feat__shot${f.portrait ? " feat__shot--portrait" : ""}`}
+                  data-zoom={withBase(f.image)}
+                  data-alt={f.alt[lang]}
+                  aria-label={f.alt[lang]}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={withBase(f.image.replace(/\/([^/]+)$/, "/thumbs/$1"))}
+                    alt=""
+                    width={f.portrait ? 250 : 960}
+                    height={540}
+                    loading="lazy"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 
@@ -101,23 +132,19 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
               </div>
             ))}
           </dl>
-          <p className="figures__stack" data-reveal="rise">
-            {project.stack}
-          </p>
         </section>
       )}
 
-      <nav className="next" aria-label={t.project.back}>
-        <a className="next__link" href={withBase(next ? projectPath(lang, next.slug) : `/${lang}/#${sectionIds(lang).work}`)}>
+      <nav className="next" aria-label={t.project.next}>
+        <a className="next__link" href={nextHref}>
           <span className="next__label">{next ? t.project.next : t.project.back}</span>
-          <span
-            className="next__name display"
-            style={{ "--chars": (next ? next.name : t.projects.title).length } as React.CSSProperties}
-          >
-            {next ? next.name : t.projects.title}
+          <span className="next__name display" style={{ "--chars": nextName.length } as React.CSSProperties}>
+            {nextName}
           </span>
         </a>
       </nav>
+
+      <Lightbox closeLabel={lang === "it" ? "Chiudi" : "Close"} />
     </>
   );
 }

@@ -28,24 +28,11 @@ function currentIndex(list: HTMLElement[]) {
 }
 
 /**
- * Frecce sinistra e destra girano la pila 3D dell'hero (su e giù restano allo scroll normale).
- * Un controller vero fa di più: su e giù cambiano sezione, A apre l'azione della sezione,
- * sinistra e destra girano la pila.
+ * Con un controller collegato il sito si usa come GameMode: su e giù cambiano sezione,
+ * A apre l'azione della sezione, sinistra e destra sfogliano la pellicola dell'hero.
  */
 export function ControllerBridge({ message }: { message: string }) {
   const [toast, setToast] = useState(false);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.altKey || e.metaKey || e.ctrlKey) return;
-      const target = e.target as HTMLElement | null;
-      if (target?.closest("input, textarea, select, [contenteditable]")) return;
-      if (e.key === "ArrowLeft") useScene.getState().nudge(-0.35);
-      if (e.key === "ArrowRight") useScene.getState().nudge(0.35);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
 
   useEffect(() => {
     let frame = 0;
@@ -59,9 +46,15 @@ export function ControllerBridge({ message }: { message: string }) {
         frame = 0;
         return;
       }
-      // Sinistra e destra tenute premute girano la pila.
-      if (pad.buttons[PAD_LEFT]?.pressed) useScene.getState().nudge(-0.04);
-      if (pad.buttons[PAD_RIGHT]?.pressed) useScene.getState().nudge(0.04);
+      // Sinistra e destra sfogliano la pellicola, un fotogramma per pressione.
+      for (const [button, step] of [
+        [PAD_LEFT, -1],
+        [PAD_RIGHT, 1],
+      ] as const) {
+        const down = !!pad.buttons[button]?.pressed;
+        if (down && !previous.get(button)) useScene.getState().nudge(step);
+        previous.set(button, down);
+      }
       for (const button of [PAD_UP, PAD_DOWN]) {
         const down = !!pad.buttons[button]?.pressed;
         if (down && !previous.get(button)) {
