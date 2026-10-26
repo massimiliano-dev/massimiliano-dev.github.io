@@ -49,7 +49,7 @@ const en: Dictionary = {
   about: {
     title: "About",
     paragraph:
-      "At work I build management tools, CRMs and SaaS platforms, mostly with Next.js, TypeScript and PostgreSQL, and I take projects from the data model to the interface. Outside work I have my own projects: open source libraries for NestJS and for Italy's electronic health record, a template for AI agents, and GameMode, which pulled me into Rust and the Windows APIs.",
+      "I'm a full-stack developer building custom software for businesses, mostly management tools, CRMs and SaaS platforms. I follow projects end to end, from analysis to release, and aim for solutions that are simple to use and easy to maintain over time. I work mostly in TypeScript, and when a problem calls for it I get closer to the system with Rust.",
     facts: [
       ["Role", "Full-stack developer"],
       ["Based in", "Italy"],
@@ -75,7 +75,7 @@ const en: Dictionary = {
       {
         title: "Desktop and systems",
         items: [
-          ["Rust", "GameMode"],
+          ["Rust", "systems software"],
           ["Tauri 2", "desktop apps"],
           ["Win32 and WinRT", "Windows APIs"],
           ["axum and tokio", "local servers"],

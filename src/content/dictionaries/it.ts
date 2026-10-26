@@ -48,7 +48,7 @@ const it = {
   about: {
     title: "Chi sono",
     paragraph:
-      "Per lavoro sviluppo gestionali, CRM e piattaforme SaaS, quasi sempre con Next.js, TypeScript e PostgreSQL, e seguo i progetti dal modello dei dati fino all'interfaccia. Fuori dal lavoro ho i miei progetti: librerie open source per NestJS e per il Fascicolo Sanitario Elettronico, un template per agenti AI e GameMode, che mi ha portato su Rust e sulle API di Windows.",
+      "Sono uno sviluppatore full-stack e costruisco software su misura per le aziende, soprattutto gestionali, CRM e piattaforme SaaS. Seguo i progetti per intero, dall'analisi al rilascio, e cerco soluzioni semplici da usare e facili da mantenere nel tempo. Lavoro soprattutto con TypeScript, e quando un problema lo chiede scendo più vicino al sistema con Rust.",
     facts: [
       ["Ruolo", "Full-stack developer"],
       ["Base", "Italia"],
@@ -74,7 +74,7 @@ const it = {
       {
         title: "Desktop e sistema",
         items: [
-          ["Rust", "GameMode"],
+          ["Rust", "software di sistema"],
           ["Tauri 2", "app desktop"],
           ["Win32 e WinRT", "API di Windows"],
           ["axum e tokio", "server locali"],
