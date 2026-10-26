@@ -33,7 +33,7 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
       <section className="showcase" aria-labelledby="project-title">
         <div className="showcase__head">
           <div>
-            <h1 className="showcase__name display" id="project-title">
+            <h1 className="showcase__name display" id="project-title" style={{ "--chars": project.name.length } as React.CSSProperties}>
               <span className="hero__line">
                 <span data-load="name">{project.name}</span>
               </span>
@@ -110,7 +110,12 @@ export function ProjectDetail({ project, t, lang }: { project: Project; t: Dicti
       <nav className="next" aria-label={t.project.back}>
         <a className="next__link" href={withBase(next ? projectPath(lang, next.slug) : `/${lang}/#${sectionIds(lang).work}`)}>
           <span className="next__label">{next ? t.project.next : t.project.back}</span>
-          <span className="next__name display">{next ? next.name : t.projects.title}</span>
+          <span
+            className="next__name display"
+            style={{ "--chars": (next ? next.name : t.projects.title).length } as React.CSSProperties}
+          >
+            {next ? next.name : t.projects.title}
+          </span>
         </a>
       </nav>
     </>

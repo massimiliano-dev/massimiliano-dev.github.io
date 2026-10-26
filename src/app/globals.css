@@ -354,9 +354,17 @@ a {
   align-items: end;
   margin-bottom: clamp(40px, 6vw, 88px);
 }
+/* I nomi dei progetti sono una parola sola, a volte lunga (langgraph-nestjs-template):
+   il corpo scende quanto serve perché stiano su una riga nella loro colonna. */
 .showcase__name {
   margin: 0;
-  font-size: var(--step-display);
+  --room: calc(100vw - 2 * var(--margin));
+  font-size: min(var(--step-display), calc(var(--room) / (var(--chars, 8) * 0.5)));
+}
+@media (min-width: 900px) {
+  .showcase__name {
+    --room: calc(100vw - 2 * var(--margin) - 520px - 48px);
+  }
 }
 .showcase__lead {
   margin: 0 0 24px;
@@ -1036,7 +1044,7 @@ main:has(.next) + .footer {
 .next__name {
   display: inline-block;
   align-self: flex-start;
-  font-size: var(--step-display);
+  font-size: min(var(--step-display), calc((100vw - 2 * var(--margin) - 24px) / (var(--chars, 8) * 0.5)));
   transition:
     color var(--t-hover) ease,
     transform var(--t-ui) var(--ease-out);
