@@ -6,8 +6,8 @@ export const site = {
   url: "https://massimiliano-dev.github.io",
   github: "https://github.com/massimiliano-dev",
   githubHandle: "massimiliano-dev",
-  linkedin: "www.linkedin.com/in/massimiliano-polce-ba284313b",
-  email: "massimiliano.p96@outlook.comm",
+  linkedin: "https://www.linkedin.com/in/massimiliano-polce-ba284313b",
+  email: "massimiliano.p96@outlook.com",
 } as const;
 
 export const locales = ["it", "en"] as const;
