@@ -284,6 +284,87 @@ export const projects: Project[] = [
     repo: "https://github.com/massimiliano-dev/fse-client",
   },
   {
+    slug: "fatturapa-client",
+    category: "library",
+    name: "fatturapa-client",
+    kind: { it: "Libreria TypeScript · open source", en: "TypeScript library · open source" },
+    year: "2026",
+    summary: { it: "Toolkit non ufficiale per la fattura elettronica italiana: costruisce e legge l'XML FatturaPA, lo controlla con lo schema ufficiale e le regole di scarto dello SDI e lo invia tramite sette intermediari con un'unica interfaccia.", en: "An unofficial toolkit for Italian e-invoicing: it builds and reads FatturaPA XML, checks it against the official schema and the SDI rejection rules, and sends it through seven intermediaries behind one interface." },
+    intro: {
+      it: [
+        "fatturapa-client è un insieme di pacchetti TypeScript per la fatturazione elettronica italiana. Costruisce l'XML FatturaPA da un modello tipizzato, calcola i totali, lo controlla in locale con lo schema ufficiale e con le regole di scarto dello SDI, e legge le notifiche e i file firmati .p7m.",
+        "Serve a chi sviluppa un gestionale e deve emettere o ricevere fatture elettroniche. L'invio passa da un intermediario accreditato: la libreria ne integra sette dietro un'unica interfaccia, con un modulo NestJS e la CLI fatturapa. Il progetto non è ufficiale.",
+      ],
+      en: [
+        "fatturapa-client is a set of TypeScript packages for Italian electronic invoicing. It builds FatturaPA XML from a typed model, computes the totals, checks it locally against the official schema and the SDI rejection rules, and reads notifications and signed .p7m files.",
+        "It is for developers of business software who need to issue or receive e-invoices. Sending goes through an accredited intermediary: the library integrates seven of them behind one interface, with a NestJS module and the fatturapa CLI. The project is unofficial.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Una fattura con un totale sbagliato si scopre solo quando lo SDI la scarta.", en: "An invoice with a wrong total only shows up when the SDI rejects it." },
+        answer: { it: "La validazione locale applica lo schema ufficiale e 32 controlli di contenuto dello SDI, e indica il codice di scarto e il campo esatto.", en: "Local validation applies the official schema and 32 SDI content checks, and points to the rejection code and the exact field." },
+      },
+      {
+        problem: { it: "Ogni intermediario ha le sue API, i suoi stati e i suoi webhook.", en: "Every intermediary has its own API, statuses and webhooks." },
+        answer: { it: "Sette intermediari implementano la stessa interfaccia, e i loro stati diventano un unico insieme, dalla consegna allo scarto.", en: "Seven intermediaries implement the same interface, and their statuses map to one set, from delivery to rejection." },
+      },
+      {
+        problem: { it: "Decimali e arrotondamenti delle specifiche sono facili da sbagliare.", en: "Decimals and the specification's rounding rules are easy to get wrong." },
+        answer: { it: "Gli importi usano aritmetica decimale esatta e gli arrotondamenti previsti dalle specifiche, senza virgola mobile.", en: "Amounts use exact decimal arithmetic and the rounding the specification requires, with no floating point." },
+      },
+      {
+        problem: { it: "Fatture e token contengono dati personali e permettono di emettere fatture a nome dell'azienda.", en: "Invoices and tokens carry personal data and let anyone issue invoices in the company's name." },
+        answer: { it: "Le credenziali si leggono solo da variabili d'ambiente, la produzione va confermata in modo esplicito e i riepiloghi mascherano partite IVA e codici fiscali.", en: "Credentials are read only from environment variables, production has to be confirmed explicitly and summaries mask VAT numbers and fiscal codes." },
+      },
+    ],
+    audience: { it: "Chi sviluppa gestionali e software di fatturazione in TypeScript o Node.js.", en: "Developers of business and invoicing software in TypeScript or Node.js." },
+    status: { it: "Versione 0.x. Costruzione, controllo e lettura delle fatture sono complete. Gli intermediari sono testati con mock e non ancora sulle sandbox reali; firma locale e fattura semplificata non sono supportate.", en: "Version 0.x. Building, checking and reading invoices are complete. The intermediaries are tested with mocks, not yet against the real sandboxes; local signing and simplified invoices are not supported." },
+    lead: { it: "Toolkit TypeScript non ufficiale per FatturaPA e lo SDI.", en: "An unofficial TypeScript toolkit for FatturaPA and the SDI." },
+    stack: "TypeScript · Node.js · NestJS · libxml2 WASM",
+    cover: {
+      image: "/projects/fatturapa-client/validate.webp",
+      alt: { it: "Terminale: fatturapa validate accetta una fattura sintetica e ne scarta un'altra con i codici SDI 00423 e 00422", en: "Terminal: fatturapa validate accepts a synthetic invoice and rejects another with SDI codes 00423 and 00422" },
+    },
+    repo: "https://github.com/massimiliano-dev/fatturapa-client",
+    features: [
+      {
+        name: { it: "Controllo prima dell'invio", en: "Checked before sending" },
+        tags: "XSD · Regole SDI · CLI",
+        text: { it: "Il comando fatturapa validate controlla un file con lo schema ufficiale e con le regole di scarto dello SDI. Una fattura con un prezzo di riga sbagliato viene fermata con i codici 00423 e 00422 e il valore che ci si aspettava.", en: "The fatturapa validate command checks a file against the official schema and the SDI rejection rules. An invoice with a wrong line price is stopped with codes 00423 and 00422 and the expected value." },
+        image: "/projects/fatturapa-client/validate.webp",
+        alt: { it: "Terminale: fatturapa validate accetta una fattura sintetica e ne scarta un'altra con i codici SDI 00423 e 00422", en: "Terminal: fatturapa validate accepts a synthetic invoice and rejects another with SDI codes 00423 and 00422" },
+      },
+      {
+        name: { it: "Fatture dal modello tipizzato", en: "Invoices from a typed model" },
+        tags: "TypeScript · Decimal",
+        text: { it: "La fattura si scrive come oggetto TypeScript con i nomi dello schema. La libreria calcola totali di riga, riepiloghi IVA e totale documento con decimali esatti, e genera l'XML nell'ordine richiesto.", en: "The invoice is written as a TypeScript object using the schema's names. The library computes line totals, VAT summaries and the document total with exact decimals, and generates the XML in the required order." },
+        image: "/projects/fatturapa-client/build.webp",
+        alt: { it: "Terminale: una fattura sintetica costruita dal modello, con i totali calcolati, nessun problema dalle regole SDI e l'inizio dell'XML generato", en: "Terminal: a synthetic invoice built from the model, with computed totals, no issues from the SDI rules and the start of the generated XML" },
+      },
+      {
+        name: { it: "File firmati e notifiche", en: "Signed files and notifications" },
+        tags: "CAdES · Notifiche SDI",
+        text: { it: "Apre i file .p7m firmati, anche quelli ricevuti, e mostra un riepilogo con gli identificativi mascherati; la firma non viene verificata. Legge le notifiche dello SDI e affianca a ogni codice di scarto la descrizione ufficiale.", en: "It opens signed .p7m files, received ones included, and shows a summary with masked identifiers; the signature is not verified. It reads SDI notifications and puts the official description next to every rejection code." },
+        image: "/projects/fatturapa-client/inspect.webp",
+        alt: { it: "Terminale: il riepilogo di un file .p7m sintetico con le partite IVA mascherate e una notifica di scarto con due codici spiegati", en: "Terminal: the summary of a synthetic .p7m file with masked VAT numbers and a rejection notice with two explained codes" },
+      },
+      {
+        name: { it: "Sette intermediari, un'interfaccia", en: "Seven intermediaries, one interface" },
+        tags: "SdiProvider · Webhook",
+        text: { it: "Openapi.it, Fatture in Cloud, Invoicetronic, A-Cube, Fattura Elettronica API, Aruba e Keliweb usano la stessa interfaccia. Per ognuno ci sono autenticazione, mappatura degli stati e verifica dei webhook, testate con mock.", en: "Openapi.it, Fatture in Cloud, Invoicetronic, A-Cube, Fattura Elettronica API, Aruba and Keliweb share one interface. Each one has authentication, status mapping and webhook verification, tested with mocks." },
+        image: "/projects/fatturapa-client/providers.webp",
+        alt: { it: "Terminale: i test degli intermediari A-Cube, Fattura Elettronica API e Openapi.it, con 124 test superati", en: "Terminal: the tests for the A-Cube, Fattura Elettronica API and Openapi.it intermediaries, with 124 tests passing" },
+      },
+    ],
+    figures: [
+      { value: 124, label: { it: "test superati", en: "tests passing" } },
+      { value: 11, label: { it: "pacchetti", en: "packages" } },
+      { value: 7, label: { it: "intermediari SDI", en: "SDI intermediaries" } },
+      { value: 32, label: { it: "controlli SDI in locale", en: "SDI checks run locally" } },
+    ],
+  },
+  {
     slug: "fse-mcp",
     category: "library",
     name: "fse-mcp",
