@@ -3,7 +3,7 @@ const it = {
   meta: {
     title: "Massimiliano Polce, full-stack developer",
     description:
-      "Costruisco software dal database all'interfaccia: gestionali, piattaforme web e app desktop come GameMode.",
+      "Costruisco software dal database all'interfaccia: gestionali, piattaforme web, app desktop e librerie open source.",
   },
   skip: "Vai al contenuto",
   nav: {
@@ -40,7 +40,7 @@ const it = {
   about: {
     title: "Chi sono",
     paragraph:
-      "Scrivo software dal database all'interfaccia. Di giorno costruisco gestionali, CRM e piattaforme SaaS, quasi sempre con Next.js, TypeScript e PostgreSQL. La sera lavoro a progetti miei, come GameMode, che mi ha portato su Rust e sulle API di Windows: lì la parte difficile è capire perché un programma ruba il primo piano a un altro.",
+      "Scrivo software dal database all'interfaccia. Di giorno costruisco gestionali, CRM e piattaforme SaaS, quasi sempre con Next.js, TypeScript e PostgreSQL. La sera lavoro a progetti miei: librerie open source per NestJS e per il Fascicolo Sanitario Elettronico, un template per agenti AI e GameMode, che mi ha portato su Rust e sulle API di Windows.",
     facts: [
       ["Ruolo", "Full-stack developer"],
       ["Base", "Italia"],
@@ -53,6 +53,8 @@ const it = {
         items: [
           ["Next.js e React", "gestionali, SaaS"],
           ["TypeScript", "ovunque"],
+          ["NestJS", "API e backend"],
+          ["LangGraph.js", "agenti AI"],
           ["PostgreSQL e Prisma", "dati"],
           ["Tailwind CSS", "interfacce"],
           ["Zod", "validazione"],

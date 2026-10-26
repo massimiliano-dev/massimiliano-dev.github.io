@@ -101,6 +101,7 @@ export function Stage({ title, titleId, level, items, step }: Props) {
         <div className="stage__meta">
           <span className="stage__count">
             {step.replace("{n}", String(current + 1)).replace("{total}", String(total))}
+            <span className="stage__tags"> · {item.tags}</span>
           </span>
           {item.href && (
             <a
@@ -123,7 +124,6 @@ export function Stage({ title, titleId, level, items, step }: Props) {
                 onClick={() => goTo(i)}
               >
                 <span className="stage__row-name">{it.name}</span>
-                <span className="stage__row-tags">{it.tags}</span>
               </button>
             </li>
           ))}

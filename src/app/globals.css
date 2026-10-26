@@ -449,10 +449,9 @@ a {
 }
 .feature__head {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 8px;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
 }
 .feature__name {
   margin: 0;
@@ -462,7 +461,6 @@ a {
 .feature__tags {
   color: var(--muted);
   font-size: var(--step-small);
-  text-align: right;
 }
 .feature__text {
   margin: 0;
@@ -584,8 +582,11 @@ a {
   transform: scale(0);
   transition: transform var(--t-ui) var(--ease-out);
 }
-.stage__row-tags {
-  font-size: var(--step-small);
+.stage__row-name {
+  white-space: nowrap;
+}
+.stage__row {
+  min-height: 44px;
 }
 .stage__row.is-current {
   color: var(--ink);
@@ -946,14 +947,18 @@ a {
   font-size: var(--step-small);
   transform: translateY(16px);
   opacity: 0;
+  visibility: hidden;
   transition:
     opacity var(--t-ui) ease,
-    transform var(--t-ui) var(--ease-out);
+    transform var(--t-ui) var(--ease-out),
+    visibility 0s linear var(--t-ui);
   pointer-events: none;
 }
 .pad-toast[data-show="true"] {
   transform: none;
   opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 /* ---------- Entrate: nascoste solo se c'è lo script e il movimento è permesso ---------- */

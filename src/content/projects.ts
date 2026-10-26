@@ -148,4 +148,96 @@ export const projects: Project[] = [
       { value: 2, label: { it: "canali di rilascio, stabile e beta", en: "release channels, stable and beta" } },
     ],
   },
+  {
+    slug: "fse-client",
+    name: "fse-client",
+    kind: { it: "Libreria TypeScript · open source", en: "TypeScript library · open source" },
+    year: "2026",
+    summary: {
+      it: "Client non ufficiale per il gateway del Fascicolo Sanitario Elettronico 2.0. Valida i documenti CDA2 in locale, li inserisce nel PDF e firma le richieste con JWT su TLS reciproco; c'è anche un modulo NestJS e la CLI fse.",
+      en: "An unofficial client for Italy's Fascicolo Sanitario Elettronico 2.0 gateway. It validates CDA2 documents locally, embeds them in the PDF and signs requests with JWTs over mutual TLS; it also ships a NestJS module and the fse CLI.",
+    },
+    lead: {
+      it: "Toolkit TypeScript non ufficiale per il gateway FSE 2.0: validazione XSD locale, CDA nel PDF, JWT firmati su mTLS, modulo NestJS e CLI.",
+      en: "An unofficial TypeScript toolkit for the FSE 2.0 gateway: local XSD validation, CDA in the PDF, signed JWTs over mTLS, a NestJS module and a CLI.",
+    },
+    stack: "TypeScript · NestJS · XSD · mTLS",
+    cover: {
+      image: "/projects/fse-client/cover.webp",
+      alt: {
+        it: "Terminale: fse validate accetta un CDA sintetico, ne rifiuta uno con gli elementi in ordine sbagliato indicando la riga, e i 77 test passano",
+        en: "Terminal: fse validate accepts a synthetic CDA, rejects one with elements in the wrong order pointing at the line, and all 77 tests pass",
+      },
+    },
+    repo: "https://github.com/massimiliano-dev/fse-client",
+  },
+  {
+    slug: "fse-mcp",
+    name: "fse-mcp",
+    kind: { it: "Server MCP · open source", en: "MCP server · open source" },
+    year: "2026",
+    summary: {
+      it: "Un server MCP che spiega perché il gateway FSE 2.0 rifiuta un documento CDA2 e cosa cambiare. Lo usi da Claude o dall'IDE, gira tutto in locale e non fa chiamate di rete.",
+      en: "An MCP server that explains why the FSE 2.0 gateway rejects a CDA2 document and what to change. You use it from Claude or your IDE; it runs locally and makes no network calls.",
+    },
+    lead: {
+      it: "Server MCP che traduce gli errori del gateway FSE 2.0 in spiegazioni e correzioni.",
+      en: "An MCP server that turns FSE 2.0 gateway errors into explanations and fixes.",
+    },
+    stack: "TypeScript · Model Context Protocol · HL7 CDA",
+    cover: {
+      image: "/projects/fse-mcp/cover.webp",
+      alt: {
+        it: "Risposta dello strumento explain_schematron_error all'errore ERRORE-2: la regola del referto di laboratorio, la spiegazione e la correzione",
+        en: "The explain_schematron_error tool answering ERRORE-2: the laboratory report rule, the explanation and the fix",
+      },
+    },
+    repo: "https://github.com/massimiliano-dev/fse-mcp",
+  },
+  {
+    slug: "nestjs-prisma-tenants",
+    name: "nestjs-prisma-tenants",
+    kind: { it: "Toolkit NestJS · open source", en: "NestJS toolkit · open source" },
+    year: "2026",
+    summary: {
+      it: "Un database PostgreSQL per ogni cliente, con NestJS e Prisma 7. Tiene il registro dei tenant, limita le connessioni con una cache dei client, isola con un circuit breaker il tenant che va giù e migra tutti i database partendo da un canary.",
+      en: "One PostgreSQL database per customer, with NestJS and Prisma 7. It keeps the tenant registry, caps connections with a client cache, isolates a failing tenant with a circuit breaker and migrates every database starting from a canary.",
+    },
+    lead: {
+      it: "Toolkit database-per-tenant per NestJS, Prisma 7 e PostgreSQL.",
+      en: "A database-per-tenant toolkit for NestJS, Prisma 7 and PostgreSQL.",
+    },
+    stack: "TypeScript · NestJS · Prisma 7 · PostgreSQL",
+    cover: {
+      image: "/projects/nestjs-prisma-tenants/cover.webp",
+      alt: {
+        it: "Terminale: i comandi della CLI tenants (list, create, archive, migrate, status) e alcuni dei 36 test che passano",
+        en: "Terminal: the tenants CLI commands (list, create, archive, migrate, status) and some of the 36 passing tests",
+      },
+    },
+    repo: "https://github.com/massimiliano-dev/nestjs-prisma-tenants",
+  },
+  {
+    slug: "langgraph-nestjs-template",
+    name: "langgraph-nestjs-template",
+    kind: { it: "Template agenti AI · open source", en: "AI agent template · open source" },
+    year: "2026",
+    summary: {
+      it: "Backend per agenti AI con NestJS e LangGraph.js, per quando l'agente fa cose vere: chiede l'approvazione prima delle azioni con effetti, tiene separati i clienti, controlla costi e budget e verifica le risposte con eval in CI.",
+      en: "An AI agent backend with NestJS and LangGraph.js, for when the agent does real things: it asks for approval before side effects, keeps customers apart, tracks cost and budget and checks answers with evals in CI.",
+    },
+    lead: {
+      it: "Template NestJS + LangGraph.js per agenti AI in produzione, con una chat Next.js.",
+      en: "A NestJS + LangGraph.js template for production AI agents, with a Next.js chat.",
+    },
+    stack: "TypeScript · NestJS · LangGraph.js · Next.js · OpenTelemetry",
+    cover: {
+      image: "/projects/langgraph-nestjs-template/cover.webp",
+      alt: {
+        it: "Terminale: pnpm eval riproduce le risposte registrate, punteggio 1.00, e l'azione send_email si ferma in attesa di approvazione",
+        en: "Terminal: pnpm eval replays recorded responses, score 1.00, and the send_email action pauses for approval",
+      },
+    },
+    repo: "https://github.com/massimiliano-dev/langgraph-nestjs-template",
+  },
 ];

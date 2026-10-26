@@ -4,7 +4,7 @@ const en: Dictionary = {
   meta: {
     title: "Massimiliano Polce, full-stack developer",
     description:
-      "I build software from the database to the interface: business tools, web platforms and desktop apps like GameMode.",
+      "I build software from the database to the interface: business tools, web platforms, desktop apps and open source libraries.",
   },
   skip: "Skip to content",
   nav: {
@@ -41,7 +41,7 @@ const en: Dictionary = {
   about: {
     title: "About",
     paragraph:
-      "I write software from the database to the interface. By day I build management tools, CRMs and SaaS platforms, mostly with Next.js, TypeScript and PostgreSQL. At night I work on my own projects, like GameMode, which pulled me into Rust and the Windows APIs, where the hard part is figuring out why one program steals focus from another.",
+      "I write software from the database to the interface. By day I build management tools, CRMs and SaaS platforms, mostly with Next.js, TypeScript and PostgreSQL. At night I work on my own projects: open source libraries for NestJS and for Italy's electronic health record, a template for AI agents, and GameMode, which pulled me into Rust and the Windows APIs.",
     facts: [
       ["Role", "Full-stack developer"],
       ["Based in", "Italy"],
@@ -54,6 +54,8 @@ const en: Dictionary = {
         items: [
           ["Next.js and React", "business apps, SaaS"],
           ["TypeScript", "everywhere"],
+          ["NestJS", "APIs and backends"],
+          ["LangGraph.js", "AI agents"],
           ["PostgreSQL and Prisma", "data"],
           ["Tailwind CSS", "interfaces"],
           ["Zod", "validation"],
