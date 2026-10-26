@@ -18,7 +18,7 @@ const en: Dictionary = {
   },
   hero: {
     sentence:
-      "Full-stack developer. I build software from the database to the interface: business tools and web platforms by day, desktop apps and my own projects by night.",
+      "Full-stack developer. I build software from the database to the interface: business tools and web platforms by day, open source libraries and a game launcher for controllers by night.",
     action: "See the projects",
     hint: "The stack is my job: data at the bottom, server in the middle, interface on top. Drag it to turn it.",
     sceneLabel: "Three stacked 3D layers: database, server and interface",

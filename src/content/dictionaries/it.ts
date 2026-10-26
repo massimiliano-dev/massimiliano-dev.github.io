@@ -17,7 +17,7 @@ const it = {
   },
   hero: {
     sentence:
-      "Full-stack developer. Costruisco software dal database all'interfaccia: gestionali e piattaforme web di giorno, app desktop e progetti miei la sera.",
+      "Full-stack developer. Costruisco software dal database all'interfaccia: di giorno gestionali e piattaforme web, la sera librerie open source e un launcher per giocare con il controller.",
     action: "Guarda i progetti",
     hint: "La pila è il mio lavoro: dati in basso, server in mezzo, interfaccia in cima. Trascinala per girarla.",
     sceneLabel: "Tre livelli in 3D impilati: database, server e interfaccia",

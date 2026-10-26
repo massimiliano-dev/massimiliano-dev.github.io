@@ -587,8 +587,11 @@ a {
   height: 10px;
   border-radius: 2px;
   background: var(--accent);
-  transform: scale(0);
-  transition: transform var(--t-ui) var(--ease-out);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--t-ui) ease,
+    transform var(--t-ui) var(--ease-out);
 }
 .stage__row-name {
   white-space: nowrap;
@@ -600,6 +603,7 @@ a {
   color: var(--ink);
 }
 .stage__row.is-current .stage__row-name::before {
+  opacity: 1;
   transform: scale(1);
 }
 
