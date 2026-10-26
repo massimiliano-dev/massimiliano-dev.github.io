@@ -548,4 +548,100 @@ export const projects: Project[] = [
     },
     repo: "https://github.com/massimiliano-dev/langgraph-nestjs-template",
   },
+  {
+    slug: "ita-rag-bench",
+    category: "library",
+    name: "ita-rag-bench",
+    kind: { it: "Benchmark RAG · open source", en: "RAG benchmark · open source" },
+    year: "2026",
+    summary: { it: "Un banco di prova che misura tutta la catena di un sistema RAG su leggi e decreti italiani: estrazione del testo dal PDF, divisione in chunk, embedding e ricerca.", en: "A test bench that measures the whole chain of a RAG system on Italian laws and decrees: text extraction from the PDF, chunking, embeddings and search." },
+    intro: {
+      it: [
+        "ita-rag-bench è un benchmark per i sistemi RAG, quelli che rispondono alle domande cercando prima i passaggi giusti in una raccolta di documenti. Parte dai PDF originali di 20 atti della Gazzetta Ufficiale e prova ogni combinazione di parser, chunker, modello di embedding e metodo di ricerca.",
+        "Serve a capire dove si perde davvero la qualità. I benchmark esistenti valutano gli embedding o i modelli linguistici su testo già pulito, qui si misura anche quello che succede prima, quando il PDF diventa testo. I risultati sono pubblicati in una pagina in italiano e in inglese.",
+      ],
+      en: [
+        "ita-rag-bench is a benchmark for RAG systems, the ones that answer questions by first finding the right passages in a collection of documents. It starts from the original PDFs of 20 acts of the Italian Official Gazette and tries every combination of parser, chunker, embedding model and search method.",
+        "It shows where quality is really lost. Existing benchmarks evaluate embeddings or language models on clean text, while this one also measures what happens before, when the PDF turns into text. The results are published on a page in Italian and English.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "I benchmark noti partono da testo già pulito e ignorano il PDF.", en: "Well-known benchmarks start from clean text and ignore the PDF." },
+        answer: { it: "Ogni configurazione parte dai PDF ufficiali della Gazzetta, quindi anche l'estrazione del testo entra nella misura.", en: "Every configuration starts from the official PDFs, so text extraction is part of the measurement too." },
+      },
+      {
+        problem: { it: "Non si sa se conviene cambiare parser, chunker o modello di embedding.", en: "It is unclear whether to change the parser, the chunker or the embedding model." },
+        answer: { it: "La griglia prova 3 parser, 3 chunker e 5 metodi di ricerca, e mostra quanto pesa ogni scelta.", en: "The grid tries 3 parsers, 3 chunkers and 5 search methods, and shows how much each choice matters." },
+      },
+      {
+        problem: { it: "Le risposte di riferimento legate a un chunker favoriscono quel chunker.", en: "Reference answers tied to one chunker favour that chunker." },
+        answer: { it: "Ogni risposta è ancorata al testo ufficiale, con atto, articolo, comma e passaggio, qualunque sia il modo in cui il documento viene diviso.", en: "Every answer is anchored to the official text, with act, article, clause and passage, however the document is split." },
+      },
+      {
+        problem: { it: "Un PDF letto male rovina la ricerca senza dare errori.", en: "A badly read PDF ruins search without raising any error." },
+        answer: { it: "Il benchmark mostra il tetto dopo parsing e chunking: su un atto, due parser restituiscono codici di glifi invece del testo e il recall scende a zero.", en: "The benchmark shows the ceiling after parsing and chunking: on one act, two parsers return glyph codes instead of text and recall drops to zero." },
+      },
+    ],
+    audience: { it: "Chi costruisce sistemi RAG su documenti italiani e deve scegliere parser, chunker e modello di embedding.", en: "People building RAG systems on Italian documents who have to choose a parser, a chunker and an embedding model." },
+    status: { it: "Prima versione: un solo dominio, 20 atti e 150 domande ancora in bozza, scritte con l'aiuto di un LLM e non ancora validate da persone.", en: "First version: one domain, 20 acts and 150 questions still in draft, written with the help of an LLM and not yet validated by people." },
+    lead: { it: "Benchmark RAG end-to-end su documenti normativi italiani.", en: "An end-to-end RAG benchmark on Italian legal documents." },
+    stack: "Python · PyMuPDF · Docling · bge-m3 · BM25",
+    cover: {
+      image: "/projects/ita-rag-bench/cover.webp",
+      alt: { it: "La pagina dei risultati di ita-rag-bench con le conclusioni e le tre configurazioni più alte", en: "The ita-rag-bench results page with the conclusions and the three best configurations" },
+    },
+    repo: "https://github.com/massimiliano-dev/ita-rag-bench",
+    site: "https://massimiliano-dev.github.io/ita-rag-bench/",
+    features: [
+      {
+        name: { it: "Il risultato in breve", en: "The result at a glance" },
+        tags: "RAG · recall@5",
+        text: { it: "La pagina dei risultati apre con le tre configurazioni migliori. La prima, PyMuPDF con chunk fissi e ricerca ibrida bge-m3, arriva a 0,836 di recall@5, ma le prime tre restano dentro l'intervallo di confidenza.", en: "The results page opens with the three best configurations. The top one, PyMuPDF with fixed chunks and hybrid bge-m3 search, reaches 0.836 recall@5, but the top three stay within the confidence interval." },
+        image: "/projects/ita-rag-bench/cover.webp",
+        alt: { it: "La pagina dei risultati di ita-rag-bench: il titolo, le quattro conclusioni e la tabella delle tre configurazioni più alte", en: "The ita-rag-bench results page: the title, the four conclusions and the table of the three best configurations" },
+      },
+      {
+        name: { it: "Conclusioni verificabili", en: "Checkable conclusions" },
+        tags: "Analisi · Statistica",
+        text: { it: "Ogni conclusione rimanda alle righe della tabella che la sostengono. Per esempio, passare da e5-base a bge-m3 vale circa 9 punti di recall@5, quanto passare dal chunker ricorsivo a quello per articoli e commi.", en: "Every conclusion links to the table rows behind it. For example, switching from e5-base to bge-m3 is worth about 9 points of recall@5, as much as switching from the recursive chunker to the one that splits by articles and clauses." },
+        image: "/projects/ita-rag-bench/conclusions.webp",
+        alt: { it: "Le conclusioni della pagina dei risultati, ognuna con i codici delle configurazioni da verificare nell'orario", en: "The conclusions on the results page, each with the codes of the configurations to check in the timetable" },
+      },
+      {
+        name: { it: "L'orario delle configurazioni", en: "The configuration timetable" },
+        tags: "Parser · Chunker · Retrieval",
+        text: { it: "Una tabella in stile orario ferroviario: ogni colonna è una coppia di parser e chunker. La prima fermata dice quanti passaggi di riferimento restano interi in un chunk, la seconda il recall di ogni metodo di ricerca.", en: "A railway-style timetable: every column is a parser and chunker pair. The first stop shows how many reference passages stay whole in a chunk, the second the recall of each search method." },
+        image: "/projects/ita-rag-bench/timetable.webp",
+        alt: { it: "La tabella Orario: nove colonne parser e chunker, il tetto dopo il chunking e il recall@5 di BM25, ricerca densa e ibrida", en: "The Timetable table: nine parser and chunker columns, the ceiling after chunking and the recall@5 of BM25, dense and hybrid search" },
+      },
+      {
+        name: { it: "Per tipo di domanda", en: "By question type" },
+        tags: "BM25 · Embedding",
+        text: { it: "Le domande sono fattuali, multi-hop, tabellari o temporali, e i risultati cambiano molto tra un tipo e l'altro. Sulle domande tabellari BM25 arriva a 0,657, mentre la ricerca densa con e5-base si ferma a 0,379.", en: "Questions are factual, multi-hop, table-based or temporal, and results change a lot between types. On table questions BM25 reaches 0.657, while dense search with e5-base stops at 0.379." },
+        image: "/projects/ita-rag-bench/by-type.webp",
+        alt: { it: "Il recall@5 per tipo di domanda e per metodo di ricerca, con il numero di domande di ogni tipo", en: "Recall@5 by question type and search method, with the number of questions of each type" },
+      },
+      {
+        name: { it: "Costi misurati", en: "Measured costs" },
+        tags: "Docling · PyMuPDF",
+        text: { it: "Accanto alla qualità ci sono i tempi, misurati su 700 pagine. Estrarre il testo richiede 7,9 secondi con pypdf e 513 con Docling, che usa un modello per il layout e le tabelle.", en: "Next to quality there are the timings, measured on 700 pages. Extracting the text takes 7.9 seconds with pypdf and 513 with Docling, which uses a model for layout and tables." },
+        image: "/projects/ita-rag-bench/costs.webp",
+        alt: { it: "La tabella dei costi: tempi di estrazione del testo per parser e di indicizzazione e ricerca per modello", en: "The costs table: text extraction time per parser, indexing and search time per model" },
+      },
+      {
+        name: { it: "Una CLI per tutto", en: "One CLI for everything" },
+        tags: "Python · CLI",
+        text: { it: "La CLI itarag scarica i PDF e ne verifica l'impronta SHA-256, estrae il testo in un processo isolato, esegue la griglia e costruisce la pagina dei risultati. Ha anche un'interfaccia da terminale per rivedere le domande.", en: "The itarag CLI downloads the PDFs and checks their SHA-256 fingerprint, extracts the text in an isolated process, runs the grid and builds the results page. It also has a terminal interface for reviewing the questions." },
+        image: "/projects/ita-rag-bench/cli.webp",
+        alt: { it: "Terminale: itarag dataset stats con 150 domande in bozza divise per tipo, e itarag corpus info con gli atti del corpus", en: "Terminal: itarag dataset stats with 150 draft questions split by type, and itarag corpus info with the acts in the corpus" },
+      },
+    ],
+    figures: [
+      { value: 20, label: { it: "atti della Gazzetta Ufficiale", en: "acts of the Official Gazette" } },
+      { value: 700, label: { it: "pagine di PDF", en: "PDF pages" } },
+      { value: 150, label: { it: "domande, ancora in bozza", en: "questions, still in draft" } },
+      { value: 45, label: { it: "configurazioni misurate", en: "configurations measured" } },
+    ],
+  },
 ];

@@ -3,7 +3,7 @@ const it = {
   meta: {
     title: "Massimiliano Polce, full-stack developer",
     description:
-      "Full-stack developer: sviluppo applicazioni web e software su misura, e pubblico progetti open source.",
+      "Full-stack developer: sviluppo applicazioni web e software su misura, integro l'intelligenza artificiale nei prodotti e pubblico progetti open source.",
   },
   skip: "Vai al contenuto",
   nav: {
@@ -18,7 +18,7 @@ const it = {
   hero: {
     who: "Full-stack developer in Italia.",
     sentence:
-      "Sviluppo applicazioni web e software su misura, lavorando sia sul backend sia sull'interfaccia. Nel tempo libero pubblico progetti open source.",
+      "Sviluppo applicazioni web e software su misura, lavorando sia sul backend sia sull'interfaccia, e integro l'intelligenza artificiale nei prodotti che costruisco. La uso ogni giorno anche per lavorare.",
     action: "Guarda i progetti",
     contact: "Scrivimi",
     stripLabel: "Fotogrammi dei progetti",
@@ -26,7 +26,7 @@ const it = {
   },
   projects: {
     title: "Progetti",
-    filters: { all: "Tutti", library: "Librerie", app: "App" },
+    filters: { all: "Tutti", library: "Librerie e strumenti", app: "App" },
     open: "Apri il progetto",
     code: "Codice",
     frames: "{n} immagini",
@@ -48,7 +48,7 @@ const it = {
   about: {
     title: "Chi sono",
     paragraph:
-      "Sono uno sviluppatore full-stack e costruisco software su misura per le aziende, soprattutto gestionali, CRM e piattaforme SaaS. Seguo i progetti per intero, dall'analisi al rilascio, e cerco soluzioni semplici da usare e facili da mantenere nel tempo. Lavoro soprattutto con TypeScript, e quando un problema lo chiede scendo più vicino al sistema con Rust.",
+      "Sono uno sviluppatore full-stack e costruisco software su misura per le aziende, soprattutto gestionali, CRM e piattaforme SaaS. Seguo i progetti per intero, dall'analisi al rilascio, e cerco soluzioni semplici da usare e facili da mantenere nel tempo. Lavoro molto con l'intelligenza artificiale: porto i modelli linguistici dentro le applicazioni, con agenti, ricerca sui documenti e server MCP, e uso gli assistenti AI ogni giorno nello sviluppo. Scrivo soprattutto in TypeScript, e quando serve uso Rust o Python.",
     facts: [
       ["Ruolo", "Full-stack developer"],
       ["Base", "Italia"],
@@ -62,7 +62,6 @@ const it = {
           ["Next.js e React", "gestionali, SaaS"],
           ["TypeScript", "ovunque"],
           ["NestJS", "API e backend"],
-          ["LangGraph.js", "agenti AI"],
           ["PostgreSQL e Prisma", "dati"],
           ["Tailwind CSS", "interfacce"],
           ["Zod", "validazione"],
@@ -82,6 +81,17 @@ const it = {
           ["GitHub Actions", "build e rilasci"],
         ],
       },
+      {
+        title: "AI",
+        items: [
+          ["API OpenAI e Anthropic", "AI nei gestionali"],
+          ["LangGraph.js", "agenti"],
+          ["RAG ed embedding", "ricerca sui documenti"],
+          ["Model Context Protocol", "strumenti per assistenti"],
+          ["Ollama", "modelli in locale"],
+          ["Claude Code", "sviluppo con agenti"],
+        ],
+      },
     ],
   },
   contact: {
@@ -94,7 +104,7 @@ const it = {
   },
   footer: {
     what: "Massimiliano Polce, full-stack developer",
-    statement: "Applicazioni web e software su misura.",
+    statement: "Applicazioni web, software su misura e intelligenza artificiale.",
     note: "Nessun cookie, nessun tracciamento",
     time: "Ora in Italia",
     invite: "Parliamo di un progetto",
