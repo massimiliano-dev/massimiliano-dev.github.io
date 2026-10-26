@@ -319,16 +319,16 @@ export const projects: Project[] = [
       {
         name: { it: "Approvazione prima di agire", en: "Approval before acting" },
         tags: "LangGraph · interrupt",
-        text: { it: "Quando l'agente vuole usare uno strumento con effetti, come l'invio di una email, il grafo si ferma e la chat mostra la chiamata. Gli argomenti si possono correggere prima di approvare, e un lock per conversazione impedisce che una doppia approvazione la esegua due volte.", en: "When the agent wants to use a tool with side effects, such as sending an email, the graph stops and the chat shows the call. The arguments can be edited before approving, and a per-conversation lock keeps a double approval from running it twice." },
+        text: { it: "Quando l'agente vuole usare uno strumento con effetti, come l'invio di una email, il grafo si ferma e la chiamata compare nel pannello laterale della chat. Gli argomenti si possono correggere prima di approvare, e un lock per conversazione impedisce che una doppia approvazione la esegua due volte.", en: "When the agent wants to use a tool with side effects, such as sending an email, the graph stops and the call appears in the chat's side panel. The arguments can be edited before approving, and a per-conversation lock keeps a double approval from running it twice." },
         image: "/projects/langgraph-nestjs-template/approval-panel.webp",
-        alt: { it: "La chat Next.js dopo la richiesta di inviare un'email a ops@example.com: un riquadro arancione 'Approval required' indica che l'agente vuole chiamare send_email e mostra gli argomenti to, subject e body in un campo modificabile, con i pulsanti Approve e Reject.", en: "The Next.js chat after asking to email ops@example.com: an orange 'Approval required' panel says the agent wants to call send_email and shows the to, subject and body arguments in an editable field, with Approve and Reject buttons." },
+        alt: { it: "La chat dopo la richiesta di inviare un'email a ops@example.com: nel pannello laterale la scheda gialla \"Send an email\" mostra destinatario, oggetto e testo, con i pulsanti per approvare o rifiutare.", en: "The chat after asking to email ops@example.com: in the side panel, the yellow \"Send an email\" card shows recipient, subject and body, with buttons to approve or reject." },
       },
       {
         name: { it: "Strumenti in sola lettura", en: "Read-only tools" },
         tags: "SSE · Next.js",
         text: { it: "Gli strumenti che leggono soltanto, come la ricerca nei documenti, girano senza chiedere. Il loro output arriva al modello marcato come non affidabile, e la risposta arriva al browser in streaming da un proxy che tiene la chiave API sul server.", en: "Tools that only read, such as document search, run without asking. Their output reaches the model marked as untrusted, and the answer streams to the browser through a proxy that keeps the API key on the server." },
         image: "/projects/langgraph-nestjs-template/chat-answer.webp",
-        alt: { it: "La chat Next.js con la domanda 'What is the refund policy?', la riga 'Tool search_docs: success' e la risposta dell'agente: rimborso entro 30 giorni dall'acquisto, elaborato entro 5 giorni lavorativi.", en: "The Next.js chat with the question 'What is the refund policy?', the line 'Tool search_docs: success' and the agent's answer: refunds within 30 days of purchase, processed within 5 business days." },
+        alt: { it: "La chat con la domanda sulla politica di rimborso: l'agente ha cercato nei documenti senza chiedere conferma, la ricerca compare nel registro a destra e la risposta indica 30 giorni per chiedere il rimborso.", en: "The chat answering a question about the refund policy: the agent searched the documents without asking, the search shows up in the log on the right and the answer gives 30 days to request a refund." },
       },
       {
         name: { it: "Clienti separati, con limiti", en: "Separate customers, with limits" },
@@ -360,8 +360,8 @@ export const projects: Project[] = [
     cover: {
       image: "/projects/langgraph-nestjs-template/cover.webp",
       alt: {
-        it: "Terminale: pnpm eval riproduce le risposte registrate, punteggio 1.00, e l'azione send_email si ferma in attesa di approvazione",
-        en: "Terminal: pnpm eval replays recorded responses, score 1.00, and the send_email action pauses for approval",
+        it: "La chat dell'agente con un'email in attesa di approvazione nel pannello laterale.",
+        en: "The agent chat with an email waiting for approval in the side panel.",
       },
     },
     repo: "https://github.com/massimiliano-dev/langgraph-nestjs-template",
