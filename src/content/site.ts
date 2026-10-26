@@ -6,11 +6,8 @@ export const site = {
   url: "https://massimiliano-dev.github.io",
   github: "https://github.com/massimiliano-dev",
   githubHandle: "massimiliano-dev",
-  // TODO: inserire l'URL del profilo LinkedIn. Finché è vuoto il link non compare.
-  linkedin: "",
-  // TODO: sostituire con l'indirizzo email pubblico. example.com è un dominio riservato:
-  // non recapita a nessuno, quindi il sito non manda posta a sconosciuti nel frattempo.
-  email: "massimiliano@example.com",
+  linkedin: "www.linkedin.com/in/massimiliano-polce-ba284313b",
+  email: "massimiliano.p96@outlook.comm",
 } as const;
 
 export const locales = ["it", "en"] as const;
