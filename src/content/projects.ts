@@ -739,11 +739,11 @@ export const projects: Project[] = [
     intro: {
       it: [
         "Cobalto è un client di posta IMAP/SMTP costruito con Tauri 2: il backend in Rust gestisce connessioni, cache, OAuth e chiamate AI, l'interfaccia è in Svelte 5. Il pacchetto pesa pochi megabyte e si apre subito, perché la prima pagina di ogni cartella è in cache e viene mostrata prima della sincronizzazione.",
-        "Serve a chi vuole leggere più caselle in un posto solo, con il calendario Microsoft e Google affiancato e un assistente che riassume le mail lunghe e indica cosa c'è da fare. L'assistente può usare Claude, GPT oppure un modello locale con Ollama, e in quel caso il testo delle email non esce dal computer.",
+        "Serve a chi vuole leggere più caselle in un posto solo, comprese le caselle condivise di Microsoft 365, con il calendario Microsoft e Google affiancato e un assistente che riassume le mail lunghe e indica cosa c'è da fare. L'assistente può usare Claude, GPT oppure un modello locale con Ollama, e in quel caso il testo delle email non esce dal computer.",
       ],
       en: [
         "Cobalto is an IMAP/SMTP email client built with Tauri 2: the Rust backend handles connections, cache, OAuth and AI calls, and the interface is Svelte 5. The package is a few megabytes and opens right away, because the first page of every folder is cached and shown before syncing.",
-        "It is for people who want several mailboxes in one place, with Microsoft and Google calendars alongside and an assistant that summarises long emails and points out what needs doing. The assistant can use Claude, GPT or a local model through Ollama, and in that case the email text never leaves the computer.",
+        "It is for people who want several mailboxes in one place, Microsoft 365 shared mailboxes included, with Microsoft and Google calendars alongside and an assistant that summarises long emails and points out what needs doing. The assistant can use Claude, GPT or a local model through Ollama, and in that case the email text never leaves the computer.",
       ],
     },
     solves: [
@@ -765,7 +765,7 @@ export const projects: Project[] = [
       },
     ],
     audience: { it: "Chi gestisce più caselle (lavoro su Microsoft 365, personale su Gmail o iCloud) e vuole un client leggero con tastiera, calendario e un assistente AI che può restare in locale.", en: "People who handle several mailboxes (work on Microsoft 365, personal on Gmail or iCloud) and want a light client with keyboard shortcuts, a calendar and an AI assistant that can stay local." },
-    status: { it: "Versione 0.1.0. Mancano ancora un backend Microsoft Graph per i tenant che bloccano IMAP/SMTP, le notifiche istantanee con IMAP IDLE (oggi il controllo è ogni minuto), la posta in arrivo unificata, le bozze sul server e il raggruppamento in conversazioni. Le credenziali OAuth di Google in modalità test scadono ogni 7 giorni.", en: "Version 0.1.0. Still missing: a Microsoft Graph backend for tenants that block IMAP/SMTP, instant notifications with IMAP IDLE (today it checks every minute), a unified inbox, server-side drafts and threaded conversations. Google OAuth credentials in test mode expire every 7 days." },
+    status: { it: "Versione 0.1.0. Mancano ancora un backend Microsoft Graph per i tenant che bloccano IMAP/SMTP, le notifiche istantanee con IMAP IDLE (oggi il controllo è ogni minuto), la posta in arrivo unificata, le bozze sul server e il raggruppamento in conversazioni. Le credenziali OAuth di Google in modalità test scadono ogni 7 giorni. Le caselle condivise non mostrano il calendario.", en: "Version 0.1.0. Still missing: a Microsoft Graph backend for tenants that block IMAP/SMTP, instant notifications with IMAP IDLE (today it checks every minute), a unified inbox, server-side drafts and threaded conversations. Google OAuth credentials in test mode expire every 7 days. Shared mailboxes do not show a calendar." },
     lead: { it: "Un client di posta piccolo, con l'AI accanto alla mail.", en: "A small email client with the AI next to the email." },
     stack: "Tauri 2 · Rust · Svelte 5 · TypeScript · Ollama",
     cover: {
@@ -816,18 +816,18 @@ export const projects: Project[] = [
         ratio: 1.6,
       },
       {
-        name: { it: "Immagini bloccate", en: "Blocked images" },
-        tags: "DOMPurify · iframe · privacy",
-        text: { it: "Le immagini remote non vengono caricate finché non lo chiedi, così i pixel traccianti non partono. Una barra sopra il testo permette di mostrarle una volta o sempre per quel mittente. Al posto dell'immagine resta un riquadro vuoto.", en: "Remote images are not loaded until you ask, so tracking pixels never fire. A bar above the text lets you show them once or always for that sender. An empty box stays where the image would be." },
-        image: "/projects/cobalto/privacy.webp",
-        alt: { it: "Dettaglio della mail aperta: due allegati, la barra \"Immagini remote bloccate per proteggerti dal tracciamento\" con i link Mostra e Sempre da Giulia Bianchi, il testo della mail e in fondo il riquadro vuoto del logo non caricato.", en: "Detail of the open email: two attachments, the bar \"Immagini remote bloccate per proteggerti dal tracciamento\" with the links Mostra and Sempre da Giulia Bianchi, the email text and, at the bottom, the empty box of the logo that was not loaded." },
-        ratio: 1.0,
+        name: { it: "Caselle condivise", en: "Shared mailboxes" },
+        tags: "Microsoft Graph · OAuth · IMAP",
+        text: { it: "Per gli account Microsoft 365, in Impostazioni sotto l'account c'è Cerca: Cobalto legge la directory con Microsoft Graph e tiene solo le caselle condivise di cui riesce ad aprire la Posta in arrivo, con il numero dei messaggi da leggere. Un interruttore aggiunge la casella al selettore degli account, sotto l'account principale, con lo stesso accesso OAuth. Si può aggiungere anche scrivendo l'indirizzo. Per inviare come la casella serve il permesso Invia come.", en: "For Microsoft 365 accounts, Settings has a Cerca (search) link under the account: Cobalto reads the directory through Microsoft Graph and keeps only the shared mailboxes whose inbox it can open, with their unread count. A switch adds the mailbox to the account picker, under the main account, using the same OAuth sign-in. It can also be added by typing its address. Sending as the mailbox needs the Send As permission." },
+        image: "/projects/cobalto/shared.webp",
+        alt: { it: "Pannello Impostazioni, sezione Account: sotto Mario Rossi il blocco Caselle condivise con Info Acme attiva (12 da leggere), Amministrazione e Supporto clienti spente, il campo per aggiungere un indirizzo e il pulsante Aggiungi.", en: "Settings panel, Account section: under Mario Rossi the Caselle condivise block with Info Acme switched on (12 unread), Amministrazione and Supporto clienti switched off, the field to add an address and the Aggiungi button." },
+        ratio: 1.6,
       },
     ],
     figures: [
-      { value: 3172, label: { it: "righe di Rust nel backend", en: "lines of Rust in the backend" } },
-      { value: 7858, label: { it: "righe di Svelte e TypeScript nell'interfaccia", en: "lines of Svelte and TypeScript in the interface" } },
-      { value: 26, label: { it: "comandi Tauri tra interfaccia e backend", en: "Tauri commands between interface and backend" } },
+      { value: 3370, label: { it: "righe di Rust nel backend", en: "lines of Rust in the backend" } },
+      { value: 8113, label: { it: "righe di Svelte e TypeScript nell'interfaccia", en: "lines of Svelte and TypeScript in the interface" } },
+      { value: 28, label: { it: "comandi Tauri tra interfaccia e backend", en: "Tauri commands between interface and backend" } },
       { value: 6, label: { it: "provider di posta preconfigurati", en: "preconfigured mail providers" } },
     ],
   },
@@ -877,13 +877,6 @@ export const projects: Project[] = [
     repo: "https://github.com/massimiliano-dev/azzurro",
     features: [
       {
-        name: { it: "Creazione con stima", en: "Creation with estimate" },
-        tags: "ARM · catalogo · listino",
-        text: { it: "Si sceglie un tipo dal catalogo e si compila un modulo con i campi principali. A destra compaiono la stima mensile, calcolata sul piano scelto, e il corpo esatto della PUT che il portale manderà ad ARM.", en: "You pick a type from the catalog and fill in a form with the main fields. On the right you see the monthly estimate for the chosen plan and the exact PUT body the portal will send to ARM." },
-        image: "/projects/azzurro/create-estimate.webp",
-        alt: { it: "Modulo di creazione di una macchina virtuale vm-api-dev02 in rg-shop-dev, dimensione Standard_D4s_v5, con stima indicativa di 129,94 € al mese e il JSON della richiesta PUT.", en: "Creation form for a virtual machine vm-api-dev02 in rg-shop-dev, size Standard_D4s_v5, with an indicative estimate of 129.94 € per month and the JSON of the PUT request." },
-      },
-      {
         name: { it: "Nastro Richieste", en: "Requests ribbon" },
         tags: "ARM · Microsoft Graph · curl",
         text: { it: "Ogni chiamata del portale finisce in un nastro in fondo alla pagina. Qui, dopo il consenso amministratore su un'app registration, si vede la POST a Graph su appRoleAssignments con corpo e risposta JSON, pronta da copiare come curl.", en: "Every portal call lands in a ribbon at the bottom of the page. Here, after granting admin consent on an app registration, you see the Graph POST to appRoleAssignments with request and response JSON, ready to copy as curl." },
@@ -898,18 +891,25 @@ export const projects: Project[] = [
         alt: { it: "Tabella «Modifiche previste» per la distribuzione shop-dev-infra: kv-shop-dev da creare, stshopdev01 da Standard_LRS a Standard_ZRS, asp-shop-dev da B1 a P1v3, app-shop-dev con nuovi tag, altre risorse ignorate.", en: "\"Planned changes\" table for the shop-dev-infra deployment: kv-shop-dev to be created, stshopdev01 from Standard_LRS to Standard_ZRS, asp-shop-dev from B1 to P1v3, app-shop-dev with new tags, other resources ignored." },
       },
       {
-        name: { it: "Gestione costi", en: "Cost management" },
-        tags: "Cost Management · Consumption",
-        text: { it: "La pagina legge le API Microsoft.CostManagement/query e /forecast emulate con le stesse forme di Azure. Mostra il costo giornaliero con la previsione fino a fine mese e la ripartizione per servizio e per gruppo di risorse.", en: "The page reads the emulated Microsoft.CostManagement/query and /forecast APIs, shaped like Azure's. It shows daily cost with the forecast to month end and the split by service and by resource group." },
-        image: "/projects/azzurro/cost-management.webp",
-        alt: { it: "Grafico a barre del costo giornaliero di ottobre con i giorni futuri tratteggiati come previsione, e sotto le ripartizioni per servizio (App Service 99,60 €, Redis 86,75 €) e per gruppo di risorse (rg-shop-prod 207,16 €).", en: "Bar chart of daily cost for October with future days hatched as forecast, and below the split by service (App Service 99.60 €, Redis 86.75 €) and by resource group (rg-shop-prod 207.16 €)." },
+        name: { it: "Reti virtuali", en: "Virtual networks" },
+        tags: "Microsoft.Network · VNet · NSG",
+        text: { it: "Le reti virtuali hanno schede per subnet, spazio di indirizzi e DNS, e peering. Per ogni subnet si vedono gli IP liberi, già senza i 5 indirizzi che Azure riserva, il gruppo di sicurezza, la tabella di route e la delega. Hanno una scheda propria anche NSG, tabelle di route, gateway NAT, IP pubblici, bilanciatori di carico e zone DNS.", en: "Virtual networks have tabs for subnets, address space and DNS, and peerings. For each subnet you see the free IPs, with the 5 addresses Azure reserves already taken out, the security group, the route table and the delegation. NSGs, route tables, NAT gateways, public IPs, load balancers and DNS zones have their own tabs as well." },
+        image: "/projects/azzurro/vnet-subnets.webp",
+        alt: { it: "Scheda Subnet della rete virtuale vnet-hub: cinque subnet con prefisso e IP liberi (251 su una /24, 59 su una /26); snet-app e snet-data associate a nsg-app, snet-app alla tabella di route rt-app con un indirizzo in uso, snet-data delegata a Microsoft.DBforPostgreSQL/flexibleServers.", en: "Subnets tab of the vnet-hub virtual network: five subnets with prefix and free IPs (251 on a /24, 59 on a /26); snet-app and snet-data associated with nsg-app, snet-app with the rt-app route table and one address in use, snet-data delegated to Microsoft.DBforPostgreSQL/flexibleServers." },
+      },
+      {
+        name: { it: "Prezzi per token dei modelli AI", en: "Per-token prices of AI models" },
+        tags: "Azure Retail Prices · Foundry",
+        text: { it: "Il listino ha una scheda per i modelli AI. I prezzi di Azure OpenAI e Foundry vengono dall'API pubblica Azure Retail Prices, in euro per milione di token, per regione e per tipo di distribuzione (globale, Data Zone, regionale), con una copia inclusa per lavorare offline. Claude su Foundry è al listino Anthropic in dollari. L'assistente legge gli stessi dati con lo strumento get_model_pricing.", en: "The price list has a tab for AI models. Azure OpenAI and Foundry prices come from the public Azure Retail Prices API, in euro per million tokens, by region and deployment type (global, Data Zone, regional), with a bundled copy for offline use. Claude on Foundry is listed at the Anthropic price in dollars. The assistant reads the same data through the get_model_pricing tool." },
+        image: "/projects/azzurro/model-prices.webp",
+        alt: { it: "Tabella «Modelli Azure OpenAI e Foundry» per swedencentral, distribuzione globale, con il listino Azure aggiornato al 27 ottobre 2026: prezzi in euro per 1M token di input, input in cache e output, per esempio GPT-4.1 a 1,80 €, 0,40 € e 7,00 € e GPT-4.1 mini a 0,40 €, 0,10 € e 1,40 €.", en: "\"Azure OpenAI and Foundry models\" table for swedencentral, global deployment, with the Azure price list fetched on 27 October 2026: euro prices per 1M tokens of input, cached input and output, for example GPT-4.1 at 1.80 €, 0.40 € and 7.00 € and GPT-4.1 mini at 0.40 €, 0.10 € and 1.40 €." },
       },
       {
         name: { it: "Assistente con modello locale", en: "Assistant on a local model" },
-        tags: "Ollama · tool calling",
-        text: { it: "Se Ollama è attivo, l'assistente usa un modello locale e nessun dato esce dal computer. Chiama le API ARM e Graph con i permessi dell'utente: qui interroga Cost Management e risponde con una tabella dei costi del gruppo.", en: "When Ollama is running, the assistant uses a local model and no data leaves the machine. It calls the ARM and Graph APIs with the user's permissions: here it queries Cost Management and answers with a table of the group's costs." },
-        image: "/projects/azzurro/assistant-local.webp",
-        alt: { it: "Pagina Assistente con il modello locale qwen3.8:27b: la domanda sui costi di rg-shop-prod, la chiamata POST a Microsoft.CostManagement/query con esito 200 e l'inizio della risposta con una tabella di risorse e costi.", en: "Assistant page with the local model qwen3.8:27b: the question about rg-shop-prod costs, the POST call to Microsoft.CostManagement/query with status 200, and the start of the answer with a table of resources and costs." },
+        tags: "Ollama · tool calling · SSE",
+        text: { it: "Se Ollama è attivo, l'assistente usa un modello locale e chiama le API ARM e Graph con i permessi dell'utente. Con l'esecuzione automatica spenta, ogni modifica si ferma su una scheda con il corpo della richiesta e i pulsanti Esegui e Rifiuta. La risposta arriva in streaming e continua sul server anche se si chiude il pannello: solo Ferma la interrompe.", en: "When Ollama is running, the assistant uses a local model and calls the ARM and Graph APIs with the user's permissions. With automatic execution off, every change stops on a card with the request body and the Run and Reject buttons. The answer is streamed and keeps going on the server even if the panel is closed: only Stop interrupts it." },
+        image: "/projects/azzurro/assistant-confirm.webp",
+        alt: { it: "Assistente con il modello locale qwen3.8:27b: la richiesta di aggiungere la regola allow-http a nsg-app, una GET sul gruppo di sicurezza con esito 200, la risposta che la priorità 130 è libera e una PUT su securityRules/allow-http da confermare, con il corpo JSON e i pulsanti Esegui e Rifiuta.", en: "Assistant with the local model qwen3.8:27b: the request to add the allow-http rule to nsg-app, a GET on the security group with status 200, the reply that priority 130 is free, and a PUT on securityRules/allow-http waiting for confirmation, with the JSON body and the Run and Reject buttons." },
       },
       {
         name: { it: "Azure CLI e RBAC", en: "Azure CLI and RBAC" },
@@ -921,10 +921,10 @@ export const projects: Project[] = [
       },
     ],
     figures: [
-      { value: 165, label: { it: "tipi di risorsa ARM nel catalogo", en: "ARM resource types in the catalog" } },
+      { value: 167, label: { it: "tipi di risorsa ARM nel catalogo", en: "ARM resource types in the catalog" } },
       { value: 69, label: { it: "voci nel catalogo di creazione del portale", en: "entries in the portal's creation catalog" } },
       { value: 29, label: { it: "test unitari e di integrazione che passano", en: "unit and integration tests passing" } },
-      { value: 24791, label: { it: "righe di TypeScript", en: "lines of TypeScript" } },
+      { value: 29009, label: { it: "righe di TypeScript", en: "lines of TypeScript" } },
     ],
   },
 ];
