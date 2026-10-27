@@ -15,6 +15,8 @@ export interface ProjectFeature {
   focus?: string;
   /** Immagine verticale (per esempio uno schermo di telefono): non viene ritagliata. */
   portrait?: boolean;
+  /** Larghezza/altezza quando non è 16:9. */
+  ratio?: number;
 }
 
 export interface ProjectFigure {
@@ -31,6 +33,8 @@ export interface ProjectCover {
   video?: string;
   alt: Localized;
   focus?: string;
+  /** Larghezza/altezza quando non è 16:9. */
+  ratio?: number;
 }
 
 export interface ProjectImage {
@@ -723,6 +727,204 @@ export const projects: Project[] = [
       { value: 700, label: { it: "pagine di PDF", en: "PDF pages" } },
       { value: 150, label: { it: "domande, ancora in bozza", en: "questions, still in draft" } },
       { value: 45, label: { it: "configurazioni misurate", en: "configurations measured" } },
+    ],
+  },
+  {
+    slug: "cobalto",
+    category: "app",
+    name: "Cobalto",
+    kind: { it: "App desktop di posta", en: "Desktop email app" },
+    year: "2026",
+    summary: { it: "Client di posta desktop per macOS, Windows e Linux, scritto in Rust e Svelte. Accanto a ogni email c'è un assistente AI che può usare Claude, GPT o un modello locale con Ollama.", en: "A desktop email client for macOS, Windows and Linux, written in Rust and Svelte. Next to every email there is an AI assistant that can use Claude, GPT or a local model through Ollama." },
+    intro: {
+      it: [
+        "Cobalto è un client di posta IMAP/SMTP costruito con Tauri 2: il backend in Rust gestisce connessioni, cache, OAuth e chiamate AI, l'interfaccia è in Svelte 5. Il pacchetto pesa pochi megabyte e si apre subito, perché la prima pagina di ogni cartella è in cache e viene mostrata prima della sincronizzazione.",
+        "Serve a chi vuole leggere più caselle in un posto solo, con il calendario Microsoft e Google affiancato e un assistente che riassume le mail lunghe e indica cosa c'è da fare. L'assistente può usare Claude, GPT oppure un modello locale con Ollama, e in quel caso il testo delle email non esce dal computer.",
+      ],
+      en: [
+        "Cobalto is an IMAP/SMTP email client built with Tauri 2: the Rust backend handles connections, cache, OAuth and AI calls, and the interface is Svelte 5. The package is a few megabytes and opens right away, because the first page of every folder is cached and shown before syncing.",
+        "It is for people who want several mailboxes in one place, with Microsoft and Google calendars alongside and an assistant that summarises long emails and points out what needs doing. The assistant can use Claude, GPT or a local model through Ollama, and in that case the email text never leaves the computer.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Le newsletter e molte mail commerciali contengono pixel traccianti: basta aprirle per far sapere al mittente quando e dove le hai lette.", en: "Newsletters and many sales emails contain tracking pixels: opening them is enough to tell the sender when and where you read them." },
+        answer: { it: "Le immagini remote sono bloccate di default. Si sbloccano una volta o sempre per quel mittente, e l'HTML viene ripulito con DOMPurify dentro un iframe senza script.", en: "Remote images are blocked by default. You can load them once or always for that sender, and the HTML is cleaned with DOMPurify inside an iframe with no scripts." },
+      },
+      {
+        problem: { it: "Microsoft ha disattivato l'accesso IMAP/SMTP con password, sia per gli account personali sia per quelli aziendali. Molti client semplici non si collegano più.", en: "Microsoft turned off password-based IMAP/SMTP access for both personal and business accounts. Many simple clients can no longer connect." },
+        answer: { it: "Cobalto fa OAuth con PKCE e redirect su localhost per Microsoft 365, Outlook.com e Google, e salva i token nel portachiavi di sistema.", en: "Cobalto does OAuth with PKCE and a localhost redirect for Microsoft 365, Outlook.com and Google, and keeps the tokens in the system keychain." },
+      },
+      {
+        problem: { it: "Con un client lento si aspetta la sincronizzazione prima di vedere la lista, e aprire una mail resta in coda dietro il download delle altre.", en: "With a slow client you wait for sync before the list appears, and opening an email queues behind the download of the others." },
+        answer: { it: "La lista arriva dalla cache e ogni account usa due connessioni, una per sincronizzare e una per aprire i messaggi. Archivia ed elimina sono immediati, con 4,5 secondi per annullare.", en: "The list comes from the cache and each account uses two connections, one for syncing and one for opening messages. Archive and delete are instant, with 4.5 seconds to undo." },
+      },
+      {
+        problem: { it: "Un riassunto fatto da un servizio AI esterno vuol dire mandare fuori il contenuto delle email, spesso con dati di clienti e fornitori.", en: "Getting a summary from an external AI service means sending the content of your emails out, often with customer and supplier data." },
+        answer: { it: "Si può scegliere un modello locale con Ollama: Cobalto mostra i modelli installati e scarica quelli consigliati. Con Claude o GPT le chiamate partono dal backend Rust e la chiave API resta nel portachiavi.", en: "You can pick a local model through Ollama: Cobalto lists the installed models and downloads the recommended ones. With Claude or GPT the calls go out from the Rust backend and the API key stays in the keychain." },
+      },
+    ],
+    audience: { it: "Chi gestisce più caselle (lavoro su Microsoft 365, personale su Gmail o iCloud) e vuole un client leggero con tastiera, calendario e un assistente AI che può restare in locale.", en: "People who handle several mailboxes (work on Microsoft 365, personal on Gmail or iCloud) and want a light client with keyboard shortcuts, a calendar and an AI assistant that can stay local." },
+    status: { it: "Versione 0.1.0. Mancano ancora un backend Microsoft Graph per i tenant che bloccano IMAP/SMTP, le notifiche istantanee con IMAP IDLE (oggi il controllo è ogni minuto), la posta in arrivo unificata, le bozze sul server e il raggruppamento in conversazioni. Le credenziali OAuth di Google in modalità test scadono ogni 7 giorni.", en: "Version 0.1.0. Still missing: a Microsoft Graph backend for tenants that block IMAP/SMTP, instant notifications with IMAP IDLE (today it checks every minute), a unified inbox, server-side drafts and threaded conversations. Google OAuth credentials in test mode expire every 7 days." },
+    lead: { it: "Un client di posta piccolo, con l'AI accanto alla mail.", en: "A small email client with the AI next to the email." },
+    stack: "Tauri 2 · Rust · Svelte 5 · TypeScript · Ollama",
+    cover: {
+      image: "/projects/cobalto/inbox.webp",
+      alt: { it: "Cobalto con la posta in arrivo: sidebar blu con cartelle e prossima riunione, lista dei messaggi e una mail aperta con due allegati, l'avviso di immagini remote bloccate e a destra la nota dell'AI locale con il pulsante Riassumi e le risposte rapide.", en: "Cobalto showing the inbox: blue sidebar with folders and the next meeting, the message list and an open email with two attachments, the blocked remote images notice and, on the right, the local AI note with the Summarize button and quick replies." },
+      ratio: 1.6,
+    },
+    repo: "https://github.com/massimiliano-dev/cobalto",
+    features: [
+      {
+        name: { it: "Nota a margine", en: "Side note" },
+        tags: "Ollama · streaming · Markdown",
+        text: { it: "Accanto a ogni email c'è una nota dell'AI. Riassumi produce pochi punti e una sezione \"Da fare\" con le scadenze. Sotto ci sono le risposte in un clic (Accetta, Declina, Chiedi dettagli, Grazie) e un campo per fare domande sulla mail.", en: "Next to every email there is an AI note. Summarize gives a few bullet points and a \"Da fare\" (to do) section with the deadlines. Below are one-click replies (Accept, Decline, Ask for details, Thanks) and a field to ask questions about the email." },
+        image: "/projects/cobalto/ai-note.webp",
+        alt: { it: "Mail \"Preventivo rinnovo infrastruttura 2027\" aperta; a destra la nota dell'AI locale con tre punti di riassunto, la sezione Da fare \"Confermare il preventivo entro venerdì\" e i pulsanti di risposta rapida.", en: "The email \"Preventivo rinnovo infrastruttura 2027\" open; on the right the local AI note with three summary bullets, a Da fare section saying \"Confermare il preventivo entro venerdì\" and the quick reply buttons." },
+        ratio: 1.6,
+      },
+      {
+        name: { it: "Risposte e riscritture", en: "Replies and rewrites" },
+        tags: "Svelte 5 · prompt · undo",
+        text: { it: "Dal pulsante Accetta l'AI scrive la bozza di risposta nella lingua della mail, senza firma perché la aggiunge Cobalto. Poi il testo si può riscrivere più professionale, più cordiale, più breve, corretto o in inglese, e Ripristina torna alla versione prima.", en: "From the Accept button the AI drafts the reply in the email's language, without a signature since Cobalto adds it. Then the text can be rewritten more formal, warmer, shorter, corrected or in English, and Ripristina (restore) goes back to the previous version." },
+        image: "/projects/cobalto/composer.webp",
+        alt: { it: "Finestra Risposta sopra la mail: bozza breve \"confermo il preventivo allegato\", firma di Mario Rossi, la fila di pulsanti Più professionale, Più cordiale, Più breve, Correggi, In inglese, Ripristina e il campo per dare istruzioni all'AI locale.", en: "Reply window over the email: a short draft \"confermo il preventivo allegato\", Mario Rossi's signature, the row of buttons Più professionale, Più cordiale, Più breve, Correggi, In inglese, Ripristina and the field to give instructions to the local AI." },
+        ratio: 1.6,
+      },
+      {
+        name: { it: "Assistente ⌘J", en: "Assistant ⌘J" },
+        tags: "chat · contesto · citazioni",
+        text: { it: "Con ⌘J si apre una chat che vede la cartella aperta, la mail che stai leggendo e gli appuntamenti dei prossimi sette giorni. Le risposte citano le email con numeri cliccabili e, se sembrano una mail, diventano una bozza.", en: "⌘J opens a chat that sees the current folder, the email you are reading and the next seven days of appointments. Answers cite emails with clickable numbers and, when they look like an email, can become a draft." },
+        image: "/projects/cobalto/assistant.webp",
+        alt: { it: "Pannello Assistente a destra con la domanda \"Chi aspetta una mia risposta?\" e una risposta in quattro punti: Giulia Bianchi, Elena Conti, Aruba e Davide Esposito, ciascuno con il numero della mail citata.", en: "Assistant panel on the right with the question \"Chi aspetta una mia risposta?\" and a four-point answer: Giulia Bianchi, Elena Conti, Aruba and Davide Esposito, each with the number of the cited email." },
+        ratio: 1.6,
+      },
+      {
+        name: { it: "Calendario multi-account", en: "Multi-account calendar" },
+        tags: "Microsoft Graph · Google Calendar · Rust",
+        text: { it: "Con ⌘2 si passa al calendario, in vista settimana o agenda, con gli eventi di tutti gli account Microsoft e Google, ognuno con la sua sfumatura di blu. Le chiamate Teams, Meet, Zoom e Webex hanno il pulsante Partecipa e la sidebar avvisa cinque minuti prima.", en: "⌘2 switches to the calendar, in week or agenda view, with events from every Microsoft and Google account, each in its own shade of blue. Teams, Meet, Zoom and Webex calls get a Join button and the sidebar warns five minutes before." },
+        image: "/projects/cobalto/calendar.webp",
+        alt: { it: "Vista settimanale di fine ottobre 2026 con eventi di due account, una riga dell'ora attuale, due eventi di tutto il giorno e nella sidebar il riquadro \"Tra 8 minuti\" con il pulsante Partecipa.", en: "Week view of late October 2026 with events from two accounts, a current-time line, two all-day events and, in the sidebar, the \"Tra 8 minuti\" box with the Join button." },
+        ratio: 1.6,
+      },
+      {
+        name: { it: "AI in locale", en: "Local AI" },
+        tags: "Ollama · Keychain · Tauri",
+        text: { it: "Nelle impostazioni si sceglie Claude, GPT o Locale. Con Locale Cobalto controlla che Ollama sia attivo, mostra i modelli installati e scarica quelli consigliati con un clic. Il ragionamento dei modelli è spento, perché per la posta servono risposte rapide.", en: "In settings you pick Claude, GPT or Local. With Local, Cobalto checks that Ollama is running, lists the installed models and downloads the recommended ones in one click. Model reasoning is turned off, because email needs quick answers." },
+        image: "/projects/cobalto/settings.webp",
+        alt: { it: "Pannello Impostazioni, sezione Assistente: tre schede Claude, GPT e Locale con Locale selezionato, \"Ollama attivo · 2 modelli installati\", Gemma 4 26B in uso, Qwen 3.8 27B e Gemma 4 12B con il pulsante Scarica.", en: "Settings panel, Assistant section: three cards Claude, GPT and Locale with Locale selected, \"Ollama attivo · 2 modelli installati\", Gemma 4 26B in use, Qwen 3.8 27B and Gemma 4 12B with a Download button." },
+        ratio: 1.6,
+      },
+      {
+        name: { it: "Immagini bloccate", en: "Blocked images" },
+        tags: "DOMPurify · iframe · privacy",
+        text: { it: "Le immagini remote non vengono caricate finché non lo chiedi, così i pixel traccianti non partono. Una barra sopra il testo permette di mostrarle una volta o sempre per quel mittente. Al posto dell'immagine resta un riquadro vuoto.", en: "Remote images are not loaded until you ask, so tracking pixels never fire. A bar above the text lets you show them once or always for that sender. An empty box stays where the image would be." },
+        image: "/projects/cobalto/privacy.webp",
+        alt: { it: "Dettaglio della mail aperta: due allegati, la barra \"Immagini remote bloccate per proteggerti dal tracciamento\" con i link Mostra e Sempre da Giulia Bianchi, il testo della mail e in fondo il riquadro vuoto del logo non caricato.", en: "Detail of the open email: two attachments, the bar \"Immagini remote bloccate per proteggerti dal tracciamento\" with the links Mostra and Sempre da Giulia Bianchi, the email text and, at the bottom, the empty box of the logo that was not loaded." },
+        ratio: 1.0,
+      },
+    ],
+    figures: [
+      { value: 3172, label: { it: "righe di Rust nel backend", en: "lines of Rust in the backend" } },
+      { value: 7858, label: { it: "righe di Svelte e TypeScript nell'interfaccia", en: "lines of Svelte and TypeScript in the interface" } },
+      { value: 26, label: { it: "comandi Tauri tra interfaccia e backend", en: "Tauri commands between interface and backend" } },
+      { value: 6, label: { it: "provider di posta preconfigurati", en: "preconfigured mail providers" } },
+    ],
+  },
+  {
+    slug: "azzurro",
+    category: "app",
+    name: "Azzurro",
+    kind: { it: "Emulatore Azure e portale", en: "Azure emulator and portal" },
+    year: "2026",
+    summary: { it: "Un emulatore locale di Azure che risponde con le API di Resource Manager, Microsoft Graph ed Entra ID, con un portale web più semplice di quello ufficiale.", en: "A local Azure emulator that answers with the Resource Manager, Microsoft Graph and Entra ID APIs, with a web portal simpler than the official one." },
+    intro: {
+      it: [
+        "Azzurro è un server Node.js che espone le stesse API di Azure Resource Manager, Microsoft Graph e Microsoft Entra ID, con i dati in PostgreSQL. Azure CLI, gli SDK, Terraform e le applicazioni ci si collegano senza cambiare codice, usando gli endpoint token emulati. Sopra c'è un portale in Next.js 16, in italiano e inglese.",
+        "Serve a chi sviluppa o prova codice che parla con Azure e non vuole usare una sottoscrizione vera per ogni test, e a chi vuole capire come funzionano risorse, ruoli, app registration e costi senza rischi. Dal portale si può anche passare a una directory Azure reale con il proprio account.",
+      ],
+      en: [
+        "Azzurro is a Node.js server that exposes the same APIs as Azure Resource Manager, Microsoft Graph and Microsoft Entra ID, with data stored in PostgreSQL. Azure CLI, the SDKs, Terraform and your own applications connect to it without code changes, through the emulated token endpoints. On top sits a Next.js 16 portal in Italian and English.",
+        "It is for people who write or test code that talks to Azure and do not want to use a real subscription for every test, and for people who want to understand resources, roles, app registrations and costs without risk. From the portal you can also switch to a real Azure directory with your own account.",
+      ],
+    },
+    solves: [
+      {
+        problem: { it: "Provare codice che crea risorse Azure richiede una sottoscrizione, credenziali e costa soldi a ogni errore.", en: "Testing code that creates Azure resources needs a subscription and credentials, and every mistake costs money." },
+        answer: { it: "Azzurro risponde in locale con le stesse API ARM e Graph e con gli endpoint token di Entra ID. CLI, SDK e Terraform puntano a localhost e nessuno fattura nulla.", en: "Azzurro answers locally with the same ARM and Graph APIs and the Entra ID token endpoints. CLI, SDKs and Terraform point to localhost and nothing gets billed." },
+      },
+      {
+        problem: { it: "Il portale di Azure è pesante e ha molti livelli di menu anche per operazioni semplici.", en: "The Azure portal is heavy and has many menu levels even for simple tasks." },
+        answer: { it: "Il portale di Azzurro tiene in due sezioni, Risorse e Identità, quello che serve di più: creazione da catalogo, distribuzioni, IAM, utenti, gruppi e app registration.", en: "Azzurro's portal keeps what is used most in two sections, Resources and Identity: catalog creation, deployments, IAM, users, groups and app registrations." },
+      },
+      {
+        problem: { it: "Quando si clicca in un portale non si vede quali chiamate API partono, quindi è difficile rifare la stessa cosa da script.", en: "When you click around a portal you cannot see which API calls it makes, so it is hard to repeat the same thing from a script." },
+        answer: { it: "Il nastro «Richieste» in fondo a ogni pagina mostra le chiamate ARM e Graph con metodo, esito e tempi. Aperto, mostra richiesta e risposta JSON e copia il comando curl.", en: "The \"Requests\" ribbon at the bottom of every page lists the ARM and Graph calls with method, status and timing. Opened, it shows request and response JSON and copies the curl command." },
+      },
+      {
+        problem: { it: "Costi, ruoli RBAC e consensi delle app si imparano di solito sbagliando su un ambiente vero.", en: "Costs, RBAC roles and app consents are usually learned by making mistakes on a real environment." },
+        answer: { it: "Azzurro applica RBAC con i ruoli predefiniti e i loro GUID reali, i blocchi e il consenso amministratore. I costi sono stime calcolate da un listino indicativo in euro.", en: "Azzurro enforces RBAC with the built-in roles and their real GUIDs, locks and admin consent. Costs are estimates computed from an indicative price list in euro." },
+      },
+    ],
+    audience: { it: "Sviluppatori che scrivono codice o infrastruttura per Azure e vogliono provarlo in locale, e chi studia Azure e vuole un ambiente dove sbagliare non costa nulla.", en: "Developers who write code or infrastructure for Azure and want to try it locally, and people learning Azure who want an environment where mistakes cost nothing." },
+    status: { it: "Versione 0.1.0. Emula solo il piano di controllo: BLOB, segreti via data plane, code e database non sono emulati (per lo storage si può affiancare Azurite). I file Bicep vanno compilati in JSON prima della distribuzione, i gruppi di gestione non sono supportati, uniqueString() e guid() non danno gli stessi valori di Azure, il consenso utente alle autorizzazioni delegate è automatico e i modelli di Azure AI Foundry non vengono eseguiti.", en: "Version 0.1.0. It emulates the control plane only: blobs, data plane Key Vault secrets, queues and databases are not emulated (Azurite can be added for storage). Bicep files must be compiled to JSON before deployment, management groups are not supported, uniqueString() and guid() do not return the same values as Azure, user consent to delegated permissions is granted automatically, and Azure AI Foundry models are not executed." },
+    lead: { it: "Azure in locale, con le sue API e un portale più leggibile.", en: "Azure on your machine, with its APIs and a more readable portal." },
+    stack: "Node.js · Hono · PostgreSQL · Next.js 16 · Ollama",
+    cover: {
+      image: "/projects/azzurro/overview.webp",
+      alt: { it: "Home del portale Azzurro in tema scuro: contatori di sottoscrizioni, gruppi di risorse, risorse, registrazioni app, utenti e gruppi, e il riquadro dei costi del mese con spesa di 305,18 € e previsione di 358,86 €.", en: "Azzurro portal home in dark theme: counters for subscriptions, resource groups, resources, app registrations, users and groups, and the monthly cost panel with 305.18 € spent and a 358.86 € forecast." },
+    },
+    repo: "https://github.com/massimiliano-dev/azzurro",
+    features: [
+      {
+        name: { it: "Creazione con stima", en: "Creation with estimate" },
+        tags: "ARM · catalogo · listino",
+        text: { it: "Si sceglie un tipo dal catalogo e si compila un modulo con i campi principali. A destra compaiono la stima mensile, calcolata sul piano scelto, e il corpo esatto della PUT che il portale manderà ad ARM.", en: "You pick a type from the catalog and fill in a form with the main fields. On the right you see the monthly estimate for the chosen plan and the exact PUT body the portal will send to ARM." },
+        image: "/projects/azzurro/create-estimate.webp",
+        alt: { it: "Modulo di creazione di una macchina virtuale vm-api-dev02 in rg-shop-dev, dimensione Standard_D4s_v5, con stima indicativa di 129,94 € al mese e il JSON della richiesta PUT.", en: "Creation form for a virtual machine vm-api-dev02 in rg-shop-dev, size Standard_D4s_v5, with an indicative estimate of 129.94 € per month and the JSON of the PUT request." },
+      },
+      {
+        name: { it: "Nastro Richieste", en: "Requests ribbon" },
+        tags: "ARM · Microsoft Graph · curl",
+        text: { it: "Ogni chiamata del portale finisce in un nastro in fondo alla pagina. Qui, dopo il consenso amministratore su un'app registration, si vede la POST a Graph su appRoleAssignments con corpo e risposta JSON, pronta da copiare come curl.", en: "Every portal call lands in a ribbon at the bottom of the page. Here, after granting admin consent on an app registration, you see the Graph POST to appRoleAssignments with request and response JSON, ready to copy as curl." },
+        image: "/projects/azzurro/requests-ribbon.webp",
+        alt: { it: "Pannello Richieste aperto sopra la pagina dell'app github-actions-deploy: elenco di chiamate GET e POST a /v1.0/servicePrincipals e dettaglio di una POST con stato 201, corpo con principalId, resourceId e appRoleId, e risposta JSON.", en: "Requests panel open over the github-actions-deploy app page: list of GET and POST calls to /v1.0/servicePrincipals and detail of a POST with status 201, body with principalId, resourceId and appRoleId, and the JSON response." },
+      },
+      {
+        name: { it: "Anteprima what-if", en: "What-if preview" },
+        tags: "ARM template · what-if",
+        text: { it: "Prima di distribuire un modello ARM si chiede l'anteprima delle modifiche. Azzurro confronta il modello con le risorse del gruppo e mostra cosa verrebbe creato, modificato o ignorato, con i valori prima e dopo.", en: "Before deploying an ARM template you ask for a preview of the changes. Azzurro compares the template with the resources in the group and shows what would be created, modified or ignored, with before and after values." },
+        image: "/projects/azzurro/deploy-whatif.webp",
+        alt: { it: "Tabella «Modifiche previste» per la distribuzione shop-dev-infra: kv-shop-dev da creare, stshopdev01 da Standard_LRS a Standard_ZRS, asp-shop-dev da B1 a P1v3, app-shop-dev con nuovi tag, altre risorse ignorate.", en: "\"Planned changes\" table for the shop-dev-infra deployment: kv-shop-dev to be created, stshopdev01 from Standard_LRS to Standard_ZRS, asp-shop-dev from B1 to P1v3, app-shop-dev with new tags, other resources ignored." },
+      },
+      {
+        name: { it: "Gestione costi", en: "Cost management" },
+        tags: "Cost Management · Consumption",
+        text: { it: "La pagina legge le API Microsoft.CostManagement/query e /forecast emulate con le stesse forme di Azure. Mostra il costo giornaliero con la previsione fino a fine mese e la ripartizione per servizio e per gruppo di risorse.", en: "The page reads the emulated Microsoft.CostManagement/query and /forecast APIs, shaped like Azure's. It shows daily cost with the forecast to month end and the split by service and by resource group." },
+        image: "/projects/azzurro/cost-management.webp",
+        alt: { it: "Grafico a barre del costo giornaliero di ottobre con i giorni futuri tratteggiati come previsione, e sotto le ripartizioni per servizio (App Service 99,60 €, Redis 86,75 €) e per gruppo di risorse (rg-shop-prod 207,16 €).", en: "Bar chart of daily cost for October with future days hatched as forecast, and below the split by service (App Service 99.60 €, Redis 86.75 €) and by resource group (rg-shop-prod 207.16 €)." },
+      },
+      {
+        name: { it: "Assistente con modello locale", en: "Assistant on a local model" },
+        tags: "Ollama · tool calling",
+        text: { it: "Se Ollama è attivo, l'assistente usa un modello locale e nessun dato esce dal computer. Chiama le API ARM e Graph con i permessi dell'utente: qui interroga Cost Management e risponde con una tabella dei costi del gruppo.", en: "When Ollama is running, the assistant uses a local model and no data leaves the machine. It calls the ARM and Graph APIs with the user's permissions: here it queries Cost Management and answers with a table of the group's costs." },
+        image: "/projects/azzurro/assistant-local.webp",
+        alt: { it: "Pagina Assistente con il modello locale qwen3.8:27b: la domanda sui costi di rg-shop-prod, la chiamata POST a Microsoft.CostManagement/query con esito 200 e l'inizio della risposta con una tabella di risorse e costi.", en: "Assistant page with the local model qwen3.8:27b: the question about rg-shop-prod costs, the POST call to Microsoft.CostManagement/query with status 200, and the start of the answer with a table of resources and costs." },
+      },
+      {
+        name: { it: "Azure CLI e RBAC", en: "Azure CLI and RBAC" },
+        tags: "Azure CLI · OAuth 2.0 · RBAC",
+        text: { it: "Un service principal ottiene un token dall'endpoint emulato e lo usa con curl e con Azure CLI. Ha il ruolo Contributor solo su rg-shop-dev: vede quel gruppo e le sue risorse, e la creazione di un nuovo gruppo viene rifiutata.", en: "A service principal gets a token from the emulated endpoint and uses it with curl and Azure CLI. It has the Contributor role on rg-shop-dev only: it sees that group and its resources, and creating a new group is refused." },
+        image: "/projects/azzurro/terminal-azcli.webp",
+        alt: { it: "Terminale con token ottenuto via client credentials (mascherato), elenco dei gruppi di risorse via curl, az login come service principal, az vm list e az webapp list su rg-shop-dev, e az group create che fallisce con AuthorizationFailed.", en: "Terminal with a token obtained via client credentials (masked), resource group list via curl, az login as a service principal, az vm list and az webapp list on rg-shop-dev, and az group create failing with AuthorizationFailed." },
+        ratio: 1.5802,
+      },
+    ],
+    figures: [
+      { value: 165, label: { it: "tipi di risorsa ARM nel catalogo", en: "ARM resource types in the catalog" } },
+      { value: 69, label: { it: "voci nel catalogo di creazione del portale", en: "entries in the portal's creation catalog" } },
+      { value: 29, label: { it: "test unitari e di integrazione che passano", en: "unit and integration tests passing" } },
+      { value: 24791, label: { it: "righe di TypeScript", en: "lines of TypeScript" } },
     ],
   },
 ];
