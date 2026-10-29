@@ -20,6 +20,16 @@ npm run lint
 2. Aggiungi un oggetto all'array in `src/content/projects.ts` con nome, tipo, anno, riassunto, copertina e link.
 3. Se il progetto ha `features`, ottiene anche la sua pagina: `/it/progetti/<slug>/` e `/en/projects/<slug>/`. Senza `features` in home porta direttamente al codice o al sito.
 
+### Con lo script
+
+Se hai una cartella con `page.json` (testi in italiano e inglese) e le schermate in PNG:
+
+```bash
+python3 scripts/import-project.py <cartella> <slug> <Nome> <app|library> <url-repo> [url-sito]
+```
+
+Lo script converte le immagini in WebP con le miniature (serve `cwebp`, da `brew install webp`) e aggiunge la voce in `src/content/projects.ts`. Se il progetto c'è già, lo sostituisce. Il formato di `page.json` è descritto in cima allo script.
+
 In home l'indice dei progetti cresce da solo: ogni progetto è un passaggio dello stage.
 
 ## Da completare
